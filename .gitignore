@@ -1,0 +1,13 @@
+.allure/
+allure-results/
+allure-report/
+build/*
+logs/*
+.gradle
+*.iml
+*.ipr
+*.iws
+.directory
+.idea/
+target/
+
