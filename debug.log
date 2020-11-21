@@ -1,0 +1,16 @@
+[1117/205930.308:ERROR:process_info.cc(359)] UncheckedAllocate
+[1117/205930.324:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\User\AppData\Local\Temp\scoped_dir11444_1653605189\Crashpad\attachments\8e5d3979-c749-49de-9afa-5744e37d73b2: The system cannot find the path specified. (0x3)
+[1117/205931.521:ERROR:process_info.cc(359)] UncheckedAllocate
+[1117/210123.280:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1117/211255.441:ERROR:process_info.cc(359)] UncheckedAllocate
+[1117/211255.466:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\User\AppData\Local\Temp\scoped_dir10776_1949512228\Crashpad\attachments\7cca2371-11ea-4466-b140-67c100382d84: The system cannot find the path specified. (0x3)
+[1117/211255.487:ERROR:http_transport_win.cc(276)] WinHttpSendRequest: The operation completed successfully. (0x0)
+[1117/212406.816:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1117/213056.351:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\User\AppData\Local\Temp\scoped_dir104_1098832185\Crashpad\attachments\92389eff-fd96-45fa-9839-8c7453875c67: The system cannot find the path specified. (0x3)
+[1117/231504.871:ERROR:file_io.cc(135)] WriteFile: The pipe is being closed. (0xE8)
+[1117/231504.871:ERROR:file_io.cc(135)] WriteFile: The pipe is being closed. (0xE8)
+[1118/010840.958:ERROR:process_info.cc(359)] UncheckedAllocate
+[1118/011827.684:ERROR:process_info.cc(359)] UncheckedAllocate
+[1118/011827.709:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\User\AppData\Local\Temp\scoped_dir9136_175049840\Crashpad\attachments\88d1699f-f2ef-47ab-b00f-b3ccb1d9dd78: The system cannot find the path specified. (0x3)
+[1118/012103.071:ERROR:process_info.cc(359)] UncheckedAllocate
+[1118/012103.097:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\User\AppData\Local\Temp\scoped_dir12848_1708751049\Crashpad\attachments\9ff1c54c-20a0-4154-bbab-ba8251fe2b5c: The system cannot find the path specified. (0x3)

@@ -1,0 +1,7 @@
+additive1, additive2, sum, isValid
+1,1,2,true
+1024,1024,2048,true
+4096,4096,8192,true
+4096,4097,8192,false
+1024,1024,2024,false
+9223372036854775807,1,0,exception

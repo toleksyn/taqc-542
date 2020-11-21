@@ -1,0 +1,6 @@
+posered, power, expected_pow
+2,2,5
+2,3,7
+2,4,17
+2,5,31
+2,6,60
