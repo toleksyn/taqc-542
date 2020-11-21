@@ -1,0 +1,15 @@
+package ihoryanya.conditions.taskgd;
+
+public class MathUtils {
+    public static long getFactorial(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Invalid argument number = " + number);
+        }
+        long factorial = 1;
+        while (number > 1) {
+            factorial *= number;
+            number--;
+        }
+        return factorial;
+    }
+}
