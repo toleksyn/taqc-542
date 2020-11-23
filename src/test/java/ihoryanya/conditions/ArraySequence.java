@@ -2,12 +2,11 @@ package ihoryanya.conditions;
 
 public class ArraySequence {
     private int[] array;
-    //constructor of ArraySequence class
     public ArraySequence(int n) {
         array = new int[n];
     }
     //generation of a random array
-    public void randomArray() {
+    public void randomizedArrayGeneration() {
         for (int i = 0; i < array.length; i++)
             array[i] = (int) Math.round((Math.random() * 31) + 1);
     }
@@ -18,8 +17,9 @@ public class ArraySequence {
     }
     //method for printing elements of array
     public void printArray() {
-        for (int e : array)
+        for (int e : array) {
             System.out.println(e);
+        }
     }
 
     public int executeTaskG() {
