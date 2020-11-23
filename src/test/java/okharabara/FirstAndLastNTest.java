@@ -8,7 +8,7 @@ public class FirstAndLastNTest {
 	private static FirstAndLastN firstAndLastN;
 
 	@DataProvider
-	public Object[][] ValidDataProvider() {
+	public Object[][] validDataProvider() {
 		return new Object[][] {
 			{5, 5},
 			{25, 52},
@@ -18,7 +18,7 @@ public class FirstAndLastNTest {
 				
 	}
 	
-	@Test(dataProvider = "ValidDataProvider")
+	@Test(dataProvider = "validDataProvider")
 	public void addOnesPositiveTest(int n, int expected) {
 		firstAndLastN = new FirstAndLastN();
 		int actual = firstAndLastN.getSwappedFirstAndLastDigit(n);
