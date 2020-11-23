@@ -10,7 +10,7 @@ import static java.lang.Math.pow;
  *
  */
 public class Lagrange {
-    public List<LagrangeFifth> lang(int n) {
+    public List<LagrangeFifth> getFourSquares(int n) {
     	isNaturalDigit(n);
         List<LagrangeFifth> lagrangeList = new ArrayList<>();
         double squareRootN = Math.sqrt(n);
@@ -36,10 +36,9 @@ public class Lagrange {
         return i <= j && j <= k && k <= l;
     }
     
-    public boolean isNaturalDigit(int n) {
+    public void isNaturalDigit(int n) {
 		if (n <= 0) {
 			throw new IllegalArgumentException("Please enter n > 0");
 		}
-		return true;
 	}
 } 

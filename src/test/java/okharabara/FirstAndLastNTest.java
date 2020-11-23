@@ -1,17 +1,12 @@
 package okharabara;
 
-import org.testng.annotations.Test;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class FirstAndLastNTest {
 	private static FirstAndLastN firstAndLastN;
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		firstAndLastN = new FirstAndLastN();
-	}
-	
+
 	@DataProvider
 	public Object[][] ValidDataProvider() {
 		return new Object[][] {
@@ -25,20 +20,8 @@ public class FirstAndLastNTest {
 	
 	@Test(dataProvider = "ValidDataProvider")
 	public void addOnesPositiveTest(int n, int expected) {
-		int actual = firstAndLastN.firstAndLastN(n);
+		firstAndLastN = new FirstAndLastN();
+		int actual = firstAndLastN.getSwappedFirstAndLastDigit(n);
 		Assert.assertEquals(actual, expected);
-	}
-	
-	@DataProvider
-	public Object[][] InvalidDataProvider() {
-		return new Object[][] {
-			{0}, 
-			{-5}
-		};
-	}
-	
-	@Test(dataProvider = "InvalidDataProvider", expectedExceptions = IllegalArgumentException.class)
-	public void addOnesNegativeTest(int n) {
-		firstAndLastN.firstAndLastN(n);	
 	}
 }

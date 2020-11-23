@@ -5,8 +5,8 @@ package okharabara;
  * @author ACER
  *
  */
-public class AddOnes {
-	public int addOnes(int n) {
+public class AddOne {
+	public int addOne(int n) {
 		isNaturalDigit(n);
 		String[] nToStringArray = String.valueOf(n).split("");
 		StringBuilder result = new StringBuilder();
@@ -18,10 +18,9 @@ public class AddOnes {
 		return Integer.parseInt(new String(result));
 	}
 	
-	public boolean isNaturalDigit(int n) {
+	public void isNaturalDigit(int n) {
 		if (n <= 0) {
 			throw new IllegalArgumentException("Please enter n > 0");
 		}
-		return true;
 	}
 }
