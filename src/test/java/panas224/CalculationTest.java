@@ -5,11 +5,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class CalcTest {
-    private static Calc calc = null;
+public class CalculationTest {
+    private static Calculation calculation = null;
     @BeforeClass
     public static void setUpBeforeClass() {
-        calc = new Calc();
+        calculation = new Calculation();
     }
     @DataProvider(name="Calculating")
     public Object[][] GetData(){
@@ -21,7 +21,7 @@ public class CalcTest {
     }
     @Test(dataProvider = "Calculating")
     public void CalculatingTest(int expected,int origin) {
-        Assert.assertEquals(expected,calc.calculate(origin));
+        Assert.assertEquals(expected, calculation.calculate(origin));
     }
     @DataProvider Object[][] Negative(){
         Object [][] negative={

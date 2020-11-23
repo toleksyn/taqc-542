@@ -1,6 +1,6 @@
 package panas224;
 
-public class Calc  {
+public class Calculation {
     public int calculate(int n)
     {
         int p=1;//x^0

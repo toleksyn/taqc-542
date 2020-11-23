@@ -5,8 +5,8 @@ public class Main {
 
     public static void main(String[] args) {
         Console con = new Console();
-        Calc calc = new Calc();
-        con.write("result ",calc.calculate(con.read()));
+        Calculation calculation = new Calculation();
+        con.write("result ", calculation.calculate(con.read()));
         con.close();
     }
 }
