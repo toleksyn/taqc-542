@@ -1,0 +1,5 @@
+.navigation-menu a[href='#/news'],app-news-list
+.navigation-menu a[href='#/tips'],#swiper-wrapper
+.navigation-menu a[href='#/map'],div.agm-map-container-inner.sebm-google-map-container-inner
+.navigation-menu a[href='#/about'],div.container-about > div.full-text-block
+.navigation-menu a[href='#/profile/not_signed_in'],#password

@@ -1,0 +1,6 @@
+Screen width,After click,Should be displayed
+900,,//*[@id='user-avatar-wrapper']
+900,//*[@id='user-avatar-wrapper'],//div[@id='user-avatar-wrapper']//a[normalize-space(text()) = 'Settings']
+900,//*[@id='user-avatar-wrapper'],//div[@id='user-avatar-wrapper']//a[normalize-space(text()) = 'Sign out']
+500,//li[@class='burger-b'],//div[@class='navigation-menu-left-col']//a[normalize-space(text()) = 'Settings']
+500,//li[@class='burger-b'],//div[@class='navigation-menu-left-col']//a[normalize-space(text()) = 'Sign out']

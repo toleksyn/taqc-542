@@ -1,0 +1,7 @@
+Tested Page XPath,Precondition (After click),Should be displayed
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],,//div[@class='profile__details']
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],,//div[@class='achievements-images']
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],,//div[normalize-space(text()) = 'My Eco Friends']
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],,//div[@class='calendar']
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],,//div[@class='habits-in-progress']
+//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits'],//div[@id='create-button']/..,//div[@class='habits-wrapper container']
