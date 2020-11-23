@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -10,14 +10,14 @@ public class FirstTaskTest {
     private static FirstTask task = null;
 
     @DataProvider(name = "checkCalculationMaxNumPositive")
-    public static Object[][] checkCalculationMaxNumPositive() {
+    public static Object[][] checkCalculateMaximumPowerOfANumberPositive() {
         return new Object[][] {
             {3, 100}, {4, 1000}, {9, 1000000}
         };
     }
 
     @DataProvider(name = "checkCalculationMaxNumNegative")
-    public static Object[][] checkCalculationMaxNumNegative() {
+    public static Object[][] checkCalculateMaximumPowerOfANumberNegative() {
         return new Object[][] {
                 {0}, {-123}
         };
@@ -29,12 +29,12 @@ public class FirstTaskTest {
     }
 
     @Test(dataProvider = "checkCalculationMaxNumPositive")
-    public void testCalculationMaxNum1(int expected, int actual) {
-        Assert.assertEquals(expected, task.calcMaxNum(actual));
+    public void verifyCalculateMaximumPowerOfANumber1(int expected, int actual) {
+        Assert.assertEquals(expected, task.calculateMaximumPowerOfANumber(actual));
     }
 
     @Test(dataProvider = "checkCalculationMaxNumNegative", expectedExceptions = IllegalArgumentException.class)
-    public void testCalculationMaxNum8(int expected) {
-        task.calcMaxNum(expected);
+    public void verifyCalculateMaximumPowerOfANumber2(int expected) {
+        Assert.assertEquals(IllegalArgumentException.class, task.calculateMaximumPowerOfANumber(expected));
     }
 }

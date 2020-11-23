@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ b) Find all pairs x, y of natural numbers which satisfies the condition n = x^2 
  */
 public class SecondTask {
     
-    public SumOfSquares calculationOnePairXAndYWhichSatisfiesTheCondition(int n) {
+    public SumOfSquares calculateOnePairXAndYWhichSatisfiesTheCondition(int n) {
         int x = 0;
         int y = 0;
         if (n > 0) {
@@ -30,7 +30,7 @@ public class SecondTask {
         return new SumOfSquares(x, y, n);
     }
 
-    public  List<SumOfSquares> calculationAllPairsXAndYWhichSatisfiesTheCondition(int n) {
+    public List<SumOfSquares> calculateAllPairsXAndYWhichSatisfiesTheCondition(int n) {
         List<SumOfSquares> listOfAllPairs = new ArrayList<>();
         if (n > 0) {
             for (int i = 1; i <= n; i++) {

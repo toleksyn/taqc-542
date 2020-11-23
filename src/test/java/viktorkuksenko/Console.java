@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 import java.util.List;
 import java.util.Scanner;

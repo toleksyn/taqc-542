@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 /*
  * Given an integer m > 1. Get the largest integer k, which satisfies the condition 4^k < m.
@@ -6,10 +6,10 @@ package ViktorKuksenko;
 
 public class FirstTask {
 
-    public int calcMaxNum(int m) {
+    public int calculateMaximumPowerOfANumber(int m) {
         int num = 1;
         int k = 0;
-        if(m > 1) {
+        if (m > 1) {
             while (num * 4 < m) {
                 num *= 4;
                 k++;

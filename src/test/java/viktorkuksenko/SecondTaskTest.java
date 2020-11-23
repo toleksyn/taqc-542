@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -45,22 +45,22 @@ public class SecondTaskTest {
     }
 
     @Test(dataProvider = "testCheckSumOfOnePairOfSquares")
-    public void testCalculationOnePairXAndYWhichSatisfiesTheCondition1(SumOfSquares expected, Integer actual) {
-        Assert.assertEquals(expected, task.calculationOnePairXAndYWhichSatisfiesTheCondition(actual));
+    public void verifyCalculateOnePairXAndYWhichSatisfiesTheCondition1(SumOfSquares expected, Integer actual) {
+        Assert.assertEquals(expected, task.calculateOnePairXAndYWhichSatisfiesTheCondition(actual));
     }
 
     @Test(dataProvider = "testCheckSumOfAllPairsOfSquares")
-    public void testCalculationAllPairsXAndYWhichSatisfiesTheCondition1(List<SumOfSquares> expected, Integer actual) {
-        Assert.assertEquals(expected, task.calculationAllPairsXAndYWhichSatisfiesTheCondition(actual));
+    public void verifyCalculateAllPairsXAndYWhichSatisfiesTheCondition1(List<SumOfSquares> expected, Integer actual) {
+        Assert.assertEquals(expected, task.calculateAllPairsXAndYWhichSatisfiesTheCondition(actual));
     }
 
     @Test(dataProvider = "checkSumOfSquaresNegative", expectedExceptions = IllegalArgumentException.class)
-    public void testCalculationAllPairsXAndYWhichSatisfiesTheConditionNegative(Integer actual) {
-        task.calculationAllPairsXAndYWhichSatisfiesTheCondition(actual);
+    public void verifyCalculateAllPairsXAndYWhichSatisfiesTheConditionNegative(Integer actual) {
+        Assert.assertEquals(IllegalArgumentException.class, task.calculateAllPairsXAndYWhichSatisfiesTheCondition(actual));
     }
 
     @Test(dataProvider = "checkSumOfSquaresNegative", expectedExceptions = IllegalArgumentException.class)
-    public void  testCalculationOnePairXAndYWhichSatisfiesTheConditionNegative(Integer actual) {
-        task.calculationOnePairXAndYWhichSatisfiesTheCondition(actual);
+    public void  verifyCalculateOnePairXAndYWhichSatisfiesTheConditionNegative(Integer actual) {
+        Assert.assertEquals(IllegalArgumentException.class, task.calculateOnePairXAndYWhichSatisfiesTheCondition(actual));
     }
 }

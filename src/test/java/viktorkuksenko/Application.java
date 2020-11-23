@@ -1,4 +1,4 @@
-package ViktorKuksenko;
+package viktorkuksenko;
 
 public class Application {
     public static void main(String[] args) {
@@ -10,11 +10,11 @@ public class Application {
             printMenu();
             int input = console.read();
             if (input == 1) {
-                console.write(firstTask.calcMaxNum(console.read()));
+                console.write(firstTask.calculateMaximumPowerOfANumber(console.read()));
             } else if (input == 2) {
-                console.write(secondTask.calculationOnePairXAndYWhichSatisfiesTheCondition(console.read()));
+                console.write(secondTask.calculateOnePairXAndYWhichSatisfiesTheCondition(console.read()));
             } else if (input == 3) {
-                console.write(secondTask.calculationAllPairsXAndYWhichSatisfiesTheCondition(console.read()));
+                console.write(secondTask.calculateAllPairsXAndYWhichSatisfiesTheCondition(console.read()));
             } else if (input == 4) {
                 console.close();
                 break;
@@ -25,6 +25,7 @@ public class Application {
         ex.printStackTrace();
         }
     }
+
     public static void printMenu() {
         System.out.println("=====================================Menu======================================\n" +
                 "1. Enter m(number, m > 1) to get the largest k which satisfies the condition 4^k < m.\n" +
