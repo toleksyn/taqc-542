@@ -24,12 +24,4 @@ public class AddOneTest {
         int actual = addOne.addOne(n);
         Assert.assertEquals(actual, expected);
     }
-
-    @DataProvider
-    public Object[][] InvalidDataProvider() {
-        return new Object[][]{
-                {0},
-                {-5}
-        };
-    }
 }
