@@ -1,4 +1,6 @@
-package achornytc;
+package achornytc.task_01;
+
+import achornytc.task_01.NaturalNumber;
 
 import java.util.Map;
 import java.util.Set;

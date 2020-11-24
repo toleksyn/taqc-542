@@ -1,4 +1,4 @@
-package achornytc;
+package achornytc.task_01;
 
 import java.beans.Expression;
 import java.util.Scanner;

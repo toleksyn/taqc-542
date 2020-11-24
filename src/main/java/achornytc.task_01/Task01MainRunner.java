@@ -1,15 +1,14 @@
-package achornytc;
+package achornytc.task_01;
 
 import java.util.TreeMap;
 
 import static java.lang.System.*;
 
 
-public class Runner {
+public class Task01MainRunner {
     private static NaturalNumber number;
-    private NaturalNumber i;
 
-    public Runner() {
+    public Task01MainRunner() {
     }
 
     public static void main(String[] args) {

@@ -12,4 +12,5 @@ logs/*
 target/
 *.log
 test-output/
+pom.xml
 

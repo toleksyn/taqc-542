@@ -12,12 +12,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import java.lang.annotation.Repeatable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class GreenCityMenuTestJUnit5 {
+public class GreenCityMenuTestSuit {
     final static String TEST_SITE_URL = "https://ita-social-projects.github.io/GreenCityClient/";
     final static Long IMPLICIT_WAIT = 10L;
     final static String LOGIN_ENVIRONMENTAL_VARIABLE_NAME = "AUTO_TESTING_EMAIL";
@@ -33,9 +32,6 @@ public class GreenCityMenuTestJUnit5 {
     private static Dimension resolution;
     private static Actions action;
 
-    /**
-     * Initializing method. Is running before all testing methods.
-     */
     @BeforeAll
     public static void BeforeClass() {
         WebDriverManager.chromedriver().setup();
@@ -46,20 +42,11 @@ public class GreenCityMenuTestJUnit5 {
         driver.manage().window().maximize();
     }
 
-    /**
-     * A method for window refreshing. Is running before each test method.
-     */
     @BeforeEach
     public void refreshWindow() {
         driver.navigate().refresh();
     }
 
-    /**
-     * This test case is based on Links text and Target pages names compliance analysis.
-     * Testing technique : ad-hoc
-     * @param menuItem - Link text of the menu item being tested.
-     * @param pageTitle - A title of target page.
-     */
     @ParameterizedTest
     @CsvFileSource(resources = "/menuFunctionalTestWithTargetTitlesNotLoggedOn.csv")
     @Order(1)
@@ -69,12 +56,6 @@ public class GreenCityMenuTestJUnit5 {
         Assertions.assertEquals(driver.getTitle(), pageTitle);
     }
 
-    /**
-     * Test case implements tests based on CSSSelector of links and targets compliance.
-     * Testing technique : ad-hoc
-     * @param menuItem - CSSSelector of the menu item being tested
-     * @param target - CSSSelector of a unique element on the target page
-     */
     @ParameterizedTest
     @CsvFileSource(resources = "/menuFunctionalTestWithTargetObjectsNotLoggedOn.csv")
     @Order(2)
@@ -85,14 +66,6 @@ public class GreenCityMenuTestJUnit5 {
                 "A target element could not be found");
     }
 
-    /**
-     *  This test case is checking if all menu blocks change their positions correctly while resizing window
-     *  Testing technique : EQUIVALENCE PARTITIONING  &&  STATE TRANSITION
-     * @param windowWidth - the width of a browser window according to requirements and the testing technique
-     * @param shouldBeClicked - a CSSSelector of the object (link, button) which is required to be clicked in
-     *                           the test case (applicable for pup-ups)
-     * @param elementCSSSelector - a CSSSelector of the target element which should be displayed in the test case
-     */
     @ParameterizedTest
     @CsvFileSource(resources = "/menuResolutionAppearanceTestDataPositiveNotLoggedOn.csv", numLinesToSkip = 1)
     @Order(3)
@@ -108,24 +81,12 @@ public class GreenCityMenuTestJUnit5 {
 
     }
 
-    /**
-     * An optional test case for log in function as for other test cases to be logged in is needed
-     * Testing technique : ad-hoc
-     * loginOnSite() method returns true if the TARGET_LOGIN_OBJECT_CSS_SELECTOR is displayed after log in
-     */
-
     @Test
     @Order(4)
     void verifyLoginFunctionality_positive_optionalTest() {
-        Assertions.assertTrue(loginOnSite(), "Login failed");
+        Assertions.assertTrue(logInToSite(), "Login failed");
     }
 
-    /**
-     * Test case implements tests based on XPath of links and targets compliance.
-     * Testing technique : ad-hoc
-     * @param menuItem - XPath of the menu item being tested
-     * @param target - XPath of a unique element on the target page
-     */
     @ParameterizedTest
     @CsvFileSource(resources = "/menuFunctionalTestWithTargetObjectsLoggedOn.csv")
     @Order(5)
@@ -136,14 +97,6 @@ public class GreenCityMenuTestJUnit5 {
                 "A target element could not be found");
     }
 
-    /**
-     * This test case is checking if all menu blocks change their positions correctly while resizing window
-     * Testing technique : EQUIVALENCE PARTITIONING  &&  STATE TRANSITION
-     * @param windowWidth - the width of a browser window according to requirements and the testing technique
-     * @param shouldBeClicked - a XPath of the object (link, button) which is required to be clicked in
-     * 	 *                      the test case (applicable for pup-ups)
-     * @param elementXPath - a XPath of the target element which should be displayed in the test case
-     */
     @ParameterizedTest
     @CsvFileSource(resources = "/menuResolutionAppearanceTestDataPositiveLoggedOn.csv", numLinesToSkip = 1)
     @Order(6)
@@ -174,25 +127,15 @@ public class GreenCityMenuTestJUnit5 {
 
     }
 
-    /**
-     * A closing method. Logs out from the site, closes connection to the WEBDriver.
-     * Is running after all test methods.
-     */
     @AfterAll
     public static void afterClass() {
-        logOutFromSite();
+        logOutOfSite();
         Actions action = new Actions(driver);
         action.pause(5000);
         driver.close();
     }
 
-    //======================================================================================================
-
-    /**
-     * Not a test method. This is a service method for logging in.
-     * @return - returns true if the TARGET_LOGIN_OBJECT_CSS_SELECTOR is displayed after log in.
-     */
-    private static boolean loginOnSite() {
+    private static boolean logInToSite() {
         driver.manage().window().maximize();
         driver.findElement(By.cssSelector(SIGN_IN_LINK_CSS_SELECTOR)).click();
 
@@ -212,12 +155,7 @@ public class GreenCityMenuTestJUnit5 {
 
     }
 
-    /**
-     * Not a test method. This is a service method for logging out.
-     * A for loop in this method is a crutch against log out link ambiguity
-     * @return - returns true if a log out link was found and clicked on.
-     */
-    private static boolean logOutFromSite() {
+    private static boolean logOutOfSite() {
         driver.manage().window().maximize();
         driver.navigate().refresh();
         driver.findElement(By.xpath(USER_AVATAR_WRAPPER_LINK_XPATH)).click();
