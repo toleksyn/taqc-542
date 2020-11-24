@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class AddOneTest {
-    private static AddOne addOne;
+    private static FirstAndLastToOneReplacer firstAndLastToOneReplacer;
 
     @DataProvider
     public Object[][] validDataProvider() {
@@ -19,9 +19,27 @@ public class AddOneTest {
     }
 
     @Test(dataProvider = "validDataProvider")
-    public void addOnesPositiveTest(int n, int expected) {
-        addOne = new AddOne();
-        int actual = addOne.addOne(n);
+    public void addOnePositiveTest(int testNumber, int expected) {
+        firstAndLastToOneReplacer = new FirstAndLastToOneReplacer();
+        int actual = firstAndLastToOneReplacer.getAddOne(testNumber);
         Assert.assertEquals(actual, expected);
+    }
+
+    @DataProvider
+    public Object[][] invalidDataProvider() {
+        return new Object[][]{
+                {0},
+                {-5},
+        };
+    }
+
+    @Test(dataProvider = "invalidDataProvider")
+    public void addOneNegativeTest(int testNumber) {
+        try {
+            firstAndLastToOneReplacer = new FirstAndLastToOneReplacer();
+            int actual = firstAndLastToOneReplacer.getAddOne(testNumber);
+            Assert.fail();
+        } catch (ArithmeticException arithmeticException) {
+        }
     }
 }
