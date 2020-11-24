@@ -2,7 +2,7 @@ package okharabara;
 
 public class FirstAndLastN {
 	public int getSwappedFirstAndLastDigit(int n) {
-		isNaturalDigit(n);
+		if(isNaturalDigit(n)) {
 		String[] nToStringArray = String.valueOf(n).split("");
 		if(nToStringArray.length < 2) {
 			return n;
@@ -11,12 +11,13 @@ public class FirstAndLastN {
 		nToStringArray[0] = nToStringArray[nToStringArray.length - 1];
 		nToStringArray[nToStringArray.length - 1] = temp;
 		return convertResultTInteger(nToStringArray);
+		} else {
+			throw new ArithmeticException("N must be natural digit");
+		}
 	}
 	
-	public void isNaturalDigit(int n) {
-		if (n <= 0) {
-			throw new IllegalArgumentException("Please enter n > 0");
-		}
+	public boolean isNaturalDigit(int n) {
+		return n > 0;
 	}
 	
 	public int convertResultTInteger(String[] array) {

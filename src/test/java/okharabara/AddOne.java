@@ -7,7 +7,7 @@ package okharabara;
  */
 public class AddOne {
 	public int addOne(int n) {
-		isNaturalDigit(n);
+		if(isNaturalDigit(n)) {
 		String[] nToStringArray = String.valueOf(n).split("");
 		StringBuilder result = new StringBuilder();
 		result.append(1);
@@ -16,11 +16,13 @@ public class AddOne {
 		}
 		result.append(1);
 		return Integer.parseInt(new String(result));
+		} else {
+			throw new ArithmeticException("Number must be natural");
+		}
+
 	}
 	
-	public void isNaturalDigit(int n) {
-		if (n <= 0) {
-			throw new IllegalArgumentException("Please enter n > 0");
-		}
+	public boolean isNaturalDigit(int n) {
+		return n > 0;
 	}
 }

@@ -11,7 +11,7 @@ import static java.lang.Math.pow;
  */
 public class Lagrange {
     public List<LagrangeFifth> getFourSquares(int n) {
-    	isNaturalDigit(n);
+    	if(isNaturalDigit(n)) {
         List<LagrangeFifth> lagrangeList = new ArrayList<>();
         double squareRootN = Math.sqrt(n);
         for (int i =0; i <squareRootN; i++) {
@@ -26,6 +26,9 @@ public class Lagrange {
             }
         }
         return lagrangeList;
+    	} else {
+    	    throw new ArithmeticException("Number must be natural");
+        }
     }
     
     public boolean isPowSum(int i, int j, int k, int l, int n) {
@@ -36,9 +39,7 @@ public class Lagrange {
         return i <= j && j <= k && k <= l;
     }
     
-    public void isNaturalDigit(int n) {
-		if (n <= 0) {
-			throw new IllegalArgumentException("Please enter n > 0");
-		}
+    public boolean isNaturalDigit(int n) {
+		return n > 0;
 	}
 } 
