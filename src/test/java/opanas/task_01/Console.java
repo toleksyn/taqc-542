@@ -1,4 +1,4 @@
-package opanas;
+package opanas.task_01;
 
 import java.util.Scanner;
 
