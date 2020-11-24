@@ -1,4 +1,4 @@
-package panas224;
+package opanas;
 
 public class Calculation {
     public int calculate(int n)

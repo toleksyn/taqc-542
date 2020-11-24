@@ -1,4 +1,4 @@
-package panas224;
+package opanas;
 
 import org.testng.*;
 import org.testng.annotations.BeforeClass;

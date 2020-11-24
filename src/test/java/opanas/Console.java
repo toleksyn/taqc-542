@@ -1,4 +1,4 @@
-package panas224;
+package opanas;
 
 import java.util.Scanner;
 
