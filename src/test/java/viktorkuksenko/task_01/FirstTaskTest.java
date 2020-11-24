@@ -1,7 +1,6 @@
-package viktorkuksenko;
+package viktorkuksenko.task_01;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -11,30 +10,27 @@ public class FirstTaskTest {
 
     @DataProvider(name = "checkCalculationMaxNumPositive")
     public static Object[][] checkCalculateMaximumPowerOfANumberPositive() {
-        return new Object[][] {
-            {3, 100}, {4, 1000}, {9, 1000000}
+        return new Object[][]{
+                {3, 100}, {4, 1000}, {9, 1000000}
         };
     }
 
     @DataProvider(name = "checkCalculationMaxNumNegative")
     public static Object[][] checkCalculateMaximumPowerOfANumberNegative() {
-        return new Object[][] {
+        return new Object[][]{
                 {0}, {-123}
         };
     }
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        task = new FirstTask();
-    }
-
     @Test(dataProvider = "checkCalculationMaxNumPositive")
-    public void verifyCalculateMaximumPowerOfANumber1(int expected, int actual) {
-        Assert.assertEquals(expected, task.calculateMaximumPowerOfANumber(actual));
+    public void verifyGetMaximumPowerOfANumberPositive(int expected, int actual) {
+        task = new FirstTask();
+        Assert.assertEquals(expected, task.getMaximumPowerOfANumber(actual));
     }
 
     @Test(dataProvider = "checkCalculationMaxNumNegative", expectedExceptions = IllegalArgumentException.class)
-    public void verifyCalculateMaximumPowerOfANumber2(int expected) {
-        Assert.assertEquals(IllegalArgumentException.class, task.calculateMaximumPowerOfANumber(expected));
+    public void verifyGetMaximumPowerOfANumberNegative(int expected) {
+        task = new FirstTask();
+        Assert.assertEquals(0, task.getMaximumPowerOfANumber(expected));
     }
 }

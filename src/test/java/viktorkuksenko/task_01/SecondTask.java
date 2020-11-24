@@ -1,4 +1,4 @@
-package viktorkuksenko;
+package viktorkuksenko.task_01;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ a) Find a pair x, y of natural numbers which satisfies the condition n = x^2 + y
 b) Find all pairs x, y of natural numbers which satisfies the condition n = x^2 + y^2, x >= y.
  */
 public class SecondTask {
-    
-    public SumOfSquares calculateOnePairXAndYWhichSatisfiesTheCondition(int n) {
+
+    public SumOfSquares getOnePairXAndYWhichSatisfiesTheCondition(int n) {
         int x = 0;
         int y = 0;
         if (n > 0) {
@@ -30,7 +30,7 @@ public class SecondTask {
         return new SumOfSquares(x, y, n);
     }
 
-    public List<SumOfSquares> calculateAllPairsXAndYWhichSatisfiesTheCondition(int n) {
+    public List<SumOfSquares> getAllPairsXAndYWhichSatisfiesTheCondition(int n) {
         List<SumOfSquares> listOfAllPairs = new ArrayList<>();
         if (n > 0) {
             for (int i = 1; i <= n; i++) {
@@ -44,7 +44,7 @@ public class SecondTask {
             throw new IllegalArgumentException("Number must be > 0");
         }
         if (listOfAllPairs.size() == 0) {
-            listOfAllPairs.add(new SumOfSquares(0,0, n));
+            listOfAllPairs.add(new SumOfSquares(0, 0, n));
         }
         return listOfAllPairs;
     }

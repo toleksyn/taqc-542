@@ -1,4 +1,4 @@
-package viktorkuksenko;
+package viktorkuksenko.task_01;
 
 import java.util.Objects;
 
@@ -11,18 +11,6 @@ public class SumOfSquares {
         this.x = x;
         this.y = y;
         this.n = n;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getN() {
-        return n;
     }
 
     @Override
