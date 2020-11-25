@@ -21,7 +21,7 @@ public class ActionWithIntNumberTest {
     }
 
     @Test(dataProvider = "getPositiveSquareNumbersData")
-    public void positiveFindSquareNumbersTest(int expected, int listElement1, int listElement2, int listElement3, int listElement4) {
+    public void verifySquareNumbersAreFound(int expected, int listElement1, int listElement2, int listElement3, int listElement4) {
         calculator = new ActionWithIntNumber();
         int actual;
         List<Integer> list = Arrays.asList(listElement1, listElement2, listElement3, listElement4);
@@ -38,7 +38,7 @@ public class ActionWithIntNumberTest {
 
 
     @Test(dataProvider = "getPositiveSpecialNumbersData")
-    public void positiveFindSpecialNumbersTest(int expected, int listElement1, int listElement2, int listElement3, int listElement4) {
+    public void verifySpecialNumbersAreFound(int expected, int listElement1, int listElement2, int listElement3, int listElement4) {
         calculator = new ActionWithIntNumber();
         int actual;
         List<Integer> list = Arrays.asList(listElement1, listElement2, listElement3, listElement4);
@@ -55,7 +55,7 @@ public class ActionWithIntNumberTest {
 
 
     @Test(dataProvider = "getNegativeSpecialNumbersData", expectedExceptions = RuntimeException.class)
-    public void negativeTestFindSpecialNumbers(int listElement1, int listElement2, int listElement3) {
+    public void verifySpecialNumbersNotFound(int listElement1, int listElement2, int listElement3) {
         calculator = new ActionWithIntNumber();
         List<Integer> list = Arrays.asList(listElement1, listElement2, listElement3);
         int actual = calculator.getSpecialNumbers(list);
@@ -64,7 +64,7 @@ public class ActionWithIntNumberTest {
 
 
     @Test(dataProvider = "getNegativeSpecialNumbersData", expectedExceptions = RuntimeException.class)
-    public void negativeTestFindSquareNumbers(int listElement1, int listElement2, int listElement3) {
+    public void verifySquareNumbersNotFound(int listElement1, int listElement2, int listElement3) {
         calculator = new ActionWithIntNumber();
         List<Integer> list = Arrays.asList(listElement1, listElement2, listElement3);
         int actual = calculator.getSquareNumbers(list);
@@ -77,7 +77,7 @@ public class ActionWithIntNumberTest {
     }
 
     @Test(dataProvider = "getNegativeFindTriplesData", expectedExceptions = RuntimeException.class)
-    public void negativeTestFindTriples(int boundaryValue) {
+    public void verifyTriplesNotFound(int boundaryValue) {
         calculator = new ActionWithIntNumber();
         int actual = (calculator.getPynthagoreanTriples(boundaryValue)).size();
         Assert.assertEquals(actual, 0);
@@ -94,7 +94,7 @@ public class ActionWithIntNumberTest {
     }
 
     @Test(dataProvider = "getPositiveFindTriplesData")
-    public void positiveTestFindTriples(int p1, List<PythagoreanTriple> list) {
+    public void verifyTriplesAreFound(int p1, List<PythagoreanTriple> list) {
         calculator = new ActionWithIntNumber();
         Set<PythagoreanTriple> expected = new HashSet<>(list);
         Set<PythagoreanTriple> actual = calculator.getPynthagoreanTriples(p1);
