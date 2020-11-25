@@ -16,7 +16,7 @@ public class CalculationTest {
         return data;
     }
     @Test(dataProvider = "Positive digits")
-    public void CalculatingTest(int expected,int origin) {
+    public void verifyPositiveDigits(int expected,int origin) {
         Assert.assertEquals(expected, calculation.calculate(origin));
     }
 
