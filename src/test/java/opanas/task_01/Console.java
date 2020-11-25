@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Console {
     private Scanner scanner=null;
-    public int naturalDigit;
     public Console() {
         scanner = new Scanner(System.in);
     }

@@ -2,7 +2,7 @@ package opanas.task_01;
 
 public class Calculation {
 
-    public int calculateExpression(int n)//2^r>n
+    public int calculateExpression(int naturalDigit)//2^r>n
     {
         int expessionDegreeZero=1;//2^0
         int degreeOfNumber=0;
@@ -11,7 +11,7 @@ public class Calculation {
             expessionDegreeZero=(int)Math.pow(2,degreeOfNumber);
 
         }
-        while (expessionDegreeZero<=n);
+        while (expessionDegreeZero<=naturalDigit);
         return expessionDegreeZero;
     }
 }
