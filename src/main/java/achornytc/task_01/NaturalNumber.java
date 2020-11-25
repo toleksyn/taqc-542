@@ -24,10 +24,9 @@ public class NaturalNumber implements NaturalNumberInterface {
 
     @Override
     public void setValue(Long number) {
-        if (number>0) {
+        if (number > 0) {
             this.value = number;
-        }
-        else {
+        } else {
             throw new NumberFormatException(number + " is not a Natural Number");
         }
     }
@@ -69,22 +68,17 @@ public class NaturalNumber implements NaturalNumberInterface {
     }
 
     @Override
-    public void add(Byte step){
-        this.add(step.longValue());
-    }
-
-    @Override
     public boolean isPaired() {
         return new NaturalNumber(2L).isDividerOf(this);
     }
 
     @Override
-    public boolean endsWith6(){
+    public boolean endsWith6() {
         return this.getValue() % 10 == 6;
     }
 
     @Override
-    public NaturalNumber powTo(Integer power){
+    public NaturalNumber powTo(Integer power) {
         return new NaturalNumber(Math.pow(this.getValue(), power.doubleValue()));
     }
 
@@ -101,6 +95,7 @@ public class NaturalNumber implements NaturalNumberInterface {
     /**
      * A method getNaturalDividers() solves exercise:
      * 224. A natural number n is given. Find all its natural dividers
+     *
      * @return a List of natural all dividers
      */
     @Override
@@ -111,8 +106,8 @@ public class NaturalNumber implements NaturalNumberInterface {
 
         int step = isPaired() ? 1 : 2;
 
-        while(minDivider.compareTo(maxDivider) < 0) {
-            if ( minDivider.isDividerOf(this) ) {
+        while (minDivider.compareTo(maxDivider) < 0) {
+            if (minDivider.isDividerOf(this)) {
                 maxDivider = getPairedDividerFor(minDivider);
                 result.add(minDivider.getValue());
                 result.add(maxDivider.getValue());
@@ -125,6 +120,7 @@ public class NaturalNumber implements NaturalNumberInterface {
     /**
      * A method getSimpleNaturalDividers() solves exercise:
      * 325. A natural number n is given. Find all its simple natural dividers
+     *
      * @return a List of simple dividers
      */
     @Override
@@ -143,6 +139,7 @@ public class NaturalNumber implements NaturalNumberInterface {
      * A method getPowered2TaleDigitsCoinciders() solves exercise:
      * 561. A natural number n is given. Among the numbers 1, ..., n find all such,
      * whose record coincides with the last digits of their power 2 (5 - 25, 6 - 36, 25 - 625, etc.)
+     *
      * @return Map {number : pow(number, 2)}
      */
     @Override
@@ -150,11 +147,11 @@ public class NaturalNumber implements NaturalNumberInterface {
         Map<Long, Long> pow2Coincidence = new HashMap<>();
 
         NaturalNumber i = new NaturalNumber(1L);
-        while(i.compareTo(this) <= 0) {
+        while (i.compareTo(this) <= 0) {
             NaturalNumber powered2 = i.powTo(2);
-            if ( i.equals( powered2.getTaleDigits( i.numberOfDigits() ) ) ) {
-                    pow2Coincidence.putIfAbsent(i.getValue(), powered2.getValue());
-                }
+            if (i.equals(powered2.getTaleDigits(i.numberOfDigits()))) {
+                pow2Coincidence.putIfAbsent(i.getValue(), powered2.getValue());
+            }
             i.add(i.endsWith6() ? 9 : 1);
         }
         return pow2Coincidence;

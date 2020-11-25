@@ -1,4 +1,4 @@
-package achornytc;
+package achornytc.task_02;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -10,7 +10,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,13 +29,11 @@ public class GreenCityMenuTestSuit {
     final static String USER_AVATAR_WRAPPER_LINK_XPATH = "//*[@class='tertiary-global-button']//*[@class='arrow']/..";
     private static WebDriver driver;
     private static Dimension resolution;
-    private static Actions action;
 
     @BeforeAll
     public static void BeforeClass() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        action = new Actions(driver);
         driver.get(TEST_SITE_URL);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -70,8 +67,8 @@ public class GreenCityMenuTestSuit {
     @CsvFileSource(resources = "/menuResolutionAppearanceTestDataPositiveNotLoggedOn.csv", numLinesToSkip = 1)
     @Order(3)
     void verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(String windowWidth, String shouldBeClicked,
-                                                                   String elementCSSSelector) {
-        resolution = new Dimension(Integer.valueOf(windowWidth), driver.manage().window().getSize().height);
+                                                                     String elementCSSSelector) {
+        resolution = new Dimension(Integer.parseInt(windowWidth), driver.manage().window().getSize().height);
         driver.manage().window().setSize(resolution);
         if (shouldBeClicked != null && !shouldBeClicked.isEmpty()) {
             driver.findElement(By.cssSelector(shouldBeClicked)).click();
@@ -83,8 +80,8 @@ public class GreenCityMenuTestSuit {
 
     @Test
     @Order(4)
-    void verifyLoginFunctionality_positive_optionalTest() {
-        Assertions.assertTrue(logInToSite(), "Login failed");
+    void verifyLogInFunctionality_positive_optionalTest() {
+        Assertions.assertTrue(logInToSite(), "Log in failed");
     }
 
     @ParameterizedTest
@@ -101,8 +98,8 @@ public class GreenCityMenuTestSuit {
     @CsvFileSource(resources = "/menuResolutionAppearanceTestDataPositiveLoggedOn.csv", numLinesToSkip = 1)
     @Order(6)
     void verifyMenuResizeWindowAppearanceLoggedOn_positive_shouldBeDisplayed(String windowWidth, String shouldBeClicked,
-                                                                           String elementXPath) {
-        resolution = new Dimension(Integer.valueOf(windowWidth), driver.manage().window().getSize().height);
+                                                                             String elementXPath) {
+        resolution = new Dimension(Integer.parseInt(windowWidth), driver.manage().window().getSize().height);
         driver.manage().window().setSize(resolution);
         if (shouldBeClicked != null && !shouldBeClicked.isEmpty()) {
             driver.findElement(By.xpath(shouldBeClicked)).click();
@@ -116,7 +113,7 @@ public class GreenCityMenuTestSuit {
     @CsvFileSource(resources = "/anyPageSmokeTestDataPositiveLoggedOn.csv", numLinesToSkip = 1)
     @Order(7)
     void verifyAnyPageLoggedOn_positive_shouldBeDisplayed(String pageXPath, String shouldBeClicked,
-                                                        String elementXPath) {
+                                                          String elementXPath) {
         driver.manage().window().maximize();
         driver.findElement(By.xpath(pageXPath)).click();
         if (shouldBeClicked != null && !shouldBeClicked.isEmpty()) {
@@ -127,11 +124,14 @@ public class GreenCityMenuTestSuit {
 
     }
 
+    @Test
+    @Order(4)
+    void verifyLogOutFunctionality_positive_optionalTest() {
+        Assertions.assertTrue(logOutOfSite(), "Log out failed");
+    }
+
     @AfterAll
     public static void afterClass() {
-        logOutOfSite();
-        Actions action = new Actions(driver);
-        action.pause(5000);
         driver.close();
     }
 

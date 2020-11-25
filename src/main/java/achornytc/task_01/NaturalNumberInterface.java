@@ -1,7 +1,5 @@
 package achornytc.task_01;
 
-import achornytc.task_01.NaturalNumber;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +11,7 @@ public interface NaturalNumberInterface {
 
     static boolean isSimple(Long number) {
         return ((new NaturalNumber(number)).getNaturalDividers().toArray().length <= 2);
-    };
+    }
 
     boolean isSimple();
 
@@ -28,8 +26,6 @@ public interface NaturalNumberInterface {
     void add(Long step);
 
     void add(Integer step);
-
-    void add(Byte step);
 
     boolean isPaired();
 

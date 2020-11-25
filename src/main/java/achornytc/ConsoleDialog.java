@@ -1,6 +1,5 @@
-package achornytc.task_01;
+package achornytc;
 
-import java.beans.Expression;
 import java.util.Scanner;
 
 public class ConsoleDialog {
@@ -10,7 +9,7 @@ public class ConsoleDialog {
         try (Scanner scan = new Scanner(System.in)) {
             return scan.nextLine();
         } catch (Exception exception) {
-            return String.valueOf("");
+            return "";
         }
     }
 }

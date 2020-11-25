@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class NaturalNumberTestSuit {
-
     private static Stream<Arguments> getVariableSizedListOfTestParameters(String fileCSV) {
         List<Arguments> listOfArguments = new ArrayList<>();
         List<String> parametersList;
@@ -31,8 +30,7 @@ class NaturalNumberTestSuit {
                 }
                 listOfArguments.add(Arguments.of(number, listOfNumbers));
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("File reading error.");
         }
         return listOfArguments.stream();
@@ -129,7 +127,7 @@ class NaturalNumberTestSuit {
                 assertFalse(sum_actual.equals(new NaturalNumber(sum_expected)));
                 break;
             case "exception":
-                assertThrows(NumberFormatException.class, ()->{
+                assertThrows(NumberFormatException.class, () -> {
                     sum_actual.add(add2.getValue());
                 });
                 break;
@@ -223,10 +221,10 @@ class NaturalNumberTestSuit {
     @ParameterizedTest
     @MethodSource(value = "dataProvider_SimpleNaturalDividers_PositiveCases")
     void verifyGetSimpleNaturalDividers_Positive_ActualSetShouldBeEqualToExpected(Long number, List<Long> listOfNumbers) {
-            Set<Long> expectedSet = Set.copyOf(listOfNumbers);
-            NaturalNumber testedNumber = new NaturalNumber(number);
-            Set<Long> actualSet = testedNumber.getSimpleNaturalDividers();
-            assertEquals(expectedSet, actualSet);
+        Set<Long> expectedSet = Set.copyOf(listOfNumbers);
+        NaturalNumber testedNumber = new NaturalNumber(number);
+        Set<Long> actualSet = testedNumber.getSimpleNaturalDividers();
+        assertEquals(expectedSet, actualSet);
     }
 
     private static Stream<Arguments> dataProvider_SimpleNaturalDividers_PositiveCases() {
@@ -251,7 +249,7 @@ class NaturalNumberTestSuit {
     @ParameterizedTest
     @CsvFileSource(resources = "/getPowered2TaleDigitsCoincidersPositive.csv", numLinesToSkip = 1)
     void verifyGetPowered2TaleDigitsCoinciders_Positive_ExpectedPairsShouldBeInActualMap(Long upperLimit, Long number,
-                                                                                   Long pow2coincider) {
+                                                                                         Long pow2coincider) {
         NaturalNumber testedNumber = new NaturalNumber(upperLimit);
         Map<Long, Long> actualMap = testedNumber.getPowered2TaleDigitsCoinciders();
         assertEquals(pow2coincider, actualMap.get(number));
@@ -260,7 +258,7 @@ class NaturalNumberTestSuit {
     @ParameterizedTest
     @CsvFileSource(resources = "/getPowered2TaleDigitsCoincidersNegative.csv", numLinesToSkip = 1)
     void verifyGetPowered2TaleDigitsCoinciders_Negative_ExpectedPairsShouldNotBeInActualMap(Long upperLimit, Long number,
-                                                                                      Long pow2coincider) {
+                                                                                            Long pow2coincider) {
         NaturalNumber testedNumber = new NaturalNumber(upperLimit);
         Map<Long, Long> actualMap = testedNumber.getPowered2TaleDigitsCoinciders();
         assertNotEquals(pow2coincider, actualMap.get(number));
