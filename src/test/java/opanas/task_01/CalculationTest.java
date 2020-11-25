@@ -1,6 +1,5 @@
 package opanas.task_01;
 
-import opanas.task_01.Calculation;
 import org.testng.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,7 +16,7 @@ public class CalculationTest {
     }
     @Test(dataProvider = "Positive digits")
     public void verifyPositiveDigits(int expected,int origin) {
-        Assert.assertEquals(expected, calculation.calculate(origin));
+        Assert.assertEquals(expected, calculation.calculateExpression(origin));
     }
 
 }
