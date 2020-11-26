@@ -1,4 +1,4 @@
-package okharabara;
+package okharabara.task01;
 
 public class LagrangeFifth {
 	private int x;

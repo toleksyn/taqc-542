@@ -1,4 +1,4 @@
-package okharabara;
+package okharabara.task01;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -21,7 +21,7 @@ public class LagrangeTest {
     }
 
     @Test(dataProvider = "validDataProvider")
-    public void lagrangePositiveTest(int testNumber, List<LagrangeFifth> expected) {
+    public void verifyLagrangePositiveTest(int testNumber, List<LagrangeFifth> expected) {
         lagrange = new Lagrange();
         List<LagrangeFifth> actual = lagrange.getFourSquares(testNumber);
         Assert.assertEquals(actual, expected);
@@ -36,7 +36,7 @@ public class LagrangeTest {
     }
 
     @Test(dataProvider = "invalidDataProvider")
-    public void lagrangeNegativeTest(int testNumber) {
+    public void verifyLagrangeNegativeTest(int testNumber) {
         try {
             lagrange = new Lagrange();
             List<LagrangeFifth> actual = lagrange.getFourSquares(testNumber);

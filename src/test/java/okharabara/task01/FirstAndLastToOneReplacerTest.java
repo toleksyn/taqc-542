@@ -1,10 +1,10 @@
-package okharabara;
+package okharabara.task01;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class AddOneTest {
+public class FirstAndLastToOneReplacerTest {
     private static FirstAndLastToOneReplacer firstAndLastToOneReplacer;
 
     @DataProvider
@@ -19,7 +19,7 @@ public class AddOneTest {
     }
 
     @Test(dataProvider = "validDataProvider")
-    public void addOnePositiveTest(int testNumber, int expected) {
+    public void verifyFirstAndLastToOneReplacerPositiveTest(int testNumber, int expected) {
         firstAndLastToOneReplacer = new FirstAndLastToOneReplacer();
         int actual = firstAndLastToOneReplacer.getAddOne(testNumber);
         Assert.assertEquals(actual, expected);
@@ -34,7 +34,7 @@ public class AddOneTest {
     }
 
     @Test(dataProvider = "invalidDataProvider")
-    public void addOneNegativeTest(int testNumber) {
+    public void verifyFirstAndLastToOneReplacerNegativeTest(int testNumber) {
         try {
             firstAndLastToOneReplacer = new FirstAndLastToOneReplacer();
             int actual = firstAndLastToOneReplacer.getAddOne(testNumber);
