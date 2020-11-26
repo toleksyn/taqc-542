@@ -12,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -20,20 +19,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class AboutUsPageTest {
     private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/about";
     private final Long IMPLICITLY_WAIT_SECONDS = 10L;
-    private final Long ONE_SECOND_DELAY = 1000L;
     private WebDriver driver;
-
-    private void presentationSleep() {
-        presentationSleep(1);
-    }
-
-    private void presentationSleep(int seconds) {
-        try {
-            Thread.sleep(seconds * ONE_SECOND_DELAY); // For Presentation ONLY
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     @BeforeSuite
     public void beforeSuite() {
@@ -49,14 +35,12 @@ public class AboutUsPageTest {
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {
-        presentationSleep(); // For Presentation ONLY
         driver.quit();
     }
 
     @BeforeMethod
     public void beforeMethod() {
         driver.get(BASE_URL);
-        presentationSleep(); // For Presentation ONLY
     }
 
     @AfterMethod
@@ -67,6 +51,7 @@ public class AboutUsPageTest {
             driver.manage().deleteAllCookies();
         }
     }
+
 
     /**
      * Test design technique: Smoke Testing
@@ -79,57 +64,69 @@ public class AboutUsPageTest {
     }
 
 
-    @DataProvider
-    public Object[][] getDataToOpenSignInWindow() {
-        return new Object[][]{
-                {".container-about .full-text-block > button"},
-                {".container-vision .full-text-block > button"},
-        };
-    }
-
     /**
      * Test design technique: Smoke Testing
-     * Checking buttons that lead to "Sign In" window
+     * Checking buttons that lead to "Sign In" window - 2 tests
+     *
+     * @param path - path to button
      */
-    @Test(dataProvider = "getDataToOpenSignInWindow")
     public void verifyOpenSignInWindowButton(String path) throws Exception {
-        boolean result = true;
+        boolean isFound = true;
         driver.findElement(By.cssSelector(path)).click();
-        presentationSleep(); // For Presentation ONLY
         if (driver.findElements(By.cssSelector(".forgot-password")).size() == 0) {
-            result = false;
+            isFound = false;
         }
         driver.findElement(By.cssSelector("img[alt='close button']")).click();
-        presentationSleep(2); // For Presentation ONLY
-        Assert.assertTrue(result);
+        Assert.assertTrue(isFound);
     }
 
-    @DataProvider
-    public Object[][] getDataToOpenMainPage() {
-        return new Object[][]{
-                {"fifth-card-link"},
-                {"fourth-card-link"},
-                {"third-card-link"},
-                {"second-card-link"},
-        };
+    @Test
+    public void verifyOpenSignInFromContainerAbout() throws Exception {
+        verifyOpenSignInWindowButton(".container-about .full-text-block > button");
     }
+
+    @Test
+    public void verifyOpenSignInFromContainerVision() throws Exception {
+        verifyOpenSignInWindowButton(".container-vision .full-text-block > button");
+    }
+
 
     /**
      * Test design technique: Smoke Testing
-     * Checking buttons that lead to Main page (Welcome Page)
+     * Checking buttons that lead to Main page (Welcome Page) - 4 tests
+     *
+     * @param path - path to button
      */
-    @Test(dataProvider = "getDataToOpenMainPage")
     public void verifyOpenMainPageButton(String path) throws Exception {
-        boolean result = true;
+        boolean isFound = true;
         driver.findElement(By.id(path)).click();
-        presentationSleep(); // For Presentation ONLY
         if (driver.findElements(By.cssSelector("#header-left > div > button")).size() == 0) {
-            result = false;
+            isFound = false;
         }
         driver.findElement(By.cssSelector(".navigation-menu ul > li > a[href='#/about']")).click();
-        presentationSleep(); // For Presentation ONLY
-        Assert.assertTrue(result);
+        Assert.assertTrue(isFound);
     }
+
+    @Test
+    public void verifyOpenMainPageSecondCard() throws Exception {
+        verifyOpenMainPageButton("second-card-link");
+    }
+
+    @Test
+    public void verifyOpenMainPageThirdCard() throws Exception {
+        verifyOpenMainPageButton("third-card-link");
+    }
+
+    @Test
+    public void verifyOpenMainPageFourthCard() throws Exception {
+        verifyOpenMainPageButton("fourth-card-link");
+    }
+
+    @Test
+    public void verifyOpenMainPageFifthCard() throws Exception {
+        verifyOpenMainPageButton("fifth-card-link");
+    }
+
 
     /**
      * Test design technique: Smoke Testing
@@ -137,15 +134,12 @@ public class AboutUsPageTest {
      */
     @Test
     public void verifyOpenPlacesButton() throws Exception {
-        boolean result = true;
+        boolean isFound = true;
         driver.findElement(By.cssSelector(".card-holder-odd.first-card-holder a[href='#/map']")).click();
-        presentationSleep(); // For Presentation ONLY
-        //driver.findElement(By.id("filter_btn")).isDisplayed();
         if (driver.findElements(By.id("filter_btn")).size() == 0) {
-            result = false;
+            isFound = false;
         }
         driver.findElement(By.cssSelector(".navigation-menu ul > li > a[href='#/about']")).click();
-        presentationSleep(); // For Presentation ONLY
-        Assert.assertTrue(result);
+        Assert.assertTrue(isFound);
     }
 }
