@@ -47,7 +47,7 @@ public class SignInTest {
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='tertiary-global-button']")).getText(),"you can buy eco-bags here");
     }
     @Test(description = "Fill in password with incorrect data")
-    private void verifyInvalidPassword() {
+    public void verifyInvalidPassword() {
         WebElement loginEmail=driver.findElement(By.id("email"));
         loginEmail.click();
         loginEmail.sendKeys("xdknxusqvjeovowpfk@awdrt.com");
@@ -58,7 +58,7 @@ public class SignInTest {
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='validation-password-error ng-star-inserted']")).getText(),"Password must be at least 8 characters long");
     }
     @Test(description = "Fill in email with incorrect data")
-    private void verifyInvalidEmail() {
+    public void verifyInvalidEmail() {
         WebElement logInEmail=driver.findElement(By.id("email"));
         logInEmail.click();
         logInEmail.sendKeys("xdknxusqvjeovowpfk.awdrt.com");
@@ -66,7 +66,7 @@ public class SignInTest {
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='validation-email-error ng-star-inserted']")).getText(),"Please check that your e-mail address is indicated correctly");
     }
     @Test(description = "Connect via gmail")
-    private void verifyGmailConnection() {
+    public void verifyGmailConnection() {
         driver.findElement(By.xpath(".//*[@class='google-sign-in']")).click();
         driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         Set<String> handles = driver.getWindowHandles();
@@ -76,7 +76,7 @@ public class SignInTest {
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='kHn9Lb']")).getText(),"Увійдіть в обліковий запис Google");
     }
     @Test()
-    private void verifyForgotPassword()  {
+    public void verifyForgotPassword()  {
         driver.findElement(By.xpath(".//*[@class='forgot-password']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='send-btn primary-global-button']")).getText(),"Submit a login link");
     }
