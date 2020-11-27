@@ -68,11 +68,24 @@ public class SignInTest {
     @Test(description = "Connect via gmail")
     public void verifyGmailConnection() {
         driver.findElement(By.xpath(".//*[@class='google-sign-in']")).click();
-        driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(0,TimeUnit.SECONDS);
+        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                System.out.println("Running apply");
+                return driver.getWindowHandles().size()>1;
+            }
+        }
+        );
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         Set<String> handles = driver.getWindowHandles();
         System.out.println(handles);
         List<String> siteIdList=new ArrayList<>(handles);
-        driver.switchTo().window(siteIdList.get(1));
+        for (String currentWindow: handles){
+            driver.switchTo().window(currentWindow);
+            if (driver.getCurrentUrl().contains("accounts.google.com")){
+                break;
+            }
+        }
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='kHn9Lb']")).getText(),"Увійдіть в обліковий запис Google");
     }
     @Test()
