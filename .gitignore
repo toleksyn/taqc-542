@@ -14,3 +14,7 @@ target/
 test-output/
 pom.xml
 
+#Gradle
+.gradle/
+build
+
