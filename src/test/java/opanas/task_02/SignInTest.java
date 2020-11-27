@@ -71,7 +71,6 @@ public class SignInTest {
         driver.manage().timeouts().implicitlyWait(0,TimeUnit.SECONDS);
         (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
-                System.out.println("Running apply");
                 return driver.getWindowHandles().size()>1;
             }
         }
