@@ -16,26 +16,31 @@ public class SignInTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
+
     @BeforeSuite
     public void beforeSuite() {
         System.setProperty("webdriver.chrome.driver","C:/Users/Lenovo/Desktop/chromedriver.exe");
     }
+
     @BeforeMethod
     public void beforeMethod() {
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@class='sign-in-link tertiary-global-button last-nav-item']")).click();
     }
+
     @AfterMethod
     public void afterMethod() {
         driver.manage().deleteAllCookies();
     }
+
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         driver.quit();
     }
+
     @Test(description = "In this test we will input the valid data in all fields of Sign in form and look if we will be redirect to our personal account")
-    public void verifyValidData()  {
+    public void verifyValidEmailPasswordData()  {
         WebElement logInEmail=driver.findElement(By.id("email"));
         logInEmail.click();
         logInEmail.sendKeys("xdknxusqvjeovowpfk@awdrt.com");
@@ -46,6 +51,7 @@ public class SignInTest {
         buttonSignIn.click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='tertiary-global-button']")).getText(),"you can buy eco-bags here");
     }
+
     @Test(description = "Fill in password with incorrect data")
     public void verifyInvalidPassword() {
         WebElement loginEmail=driver.findElement(By.id("email"));
@@ -57,6 +63,7 @@ public class SignInTest {
         driver.findElement(By.xpath(".//*[@class='or-use-google']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='validation-password-error ng-star-inserted']")).getText(),"Password must be at least 8 characters long");
     }
+
     @Test(description = "Fill in email with incorrect data")
     public void verifyInvalidEmail() {
         WebElement logInEmail=driver.findElement(By.id("email"));
@@ -65,6 +72,7 @@ public class SignInTest {
         driver.findElement(By.xpath(".//*[@class='or-use-google']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='validation-email-error ng-star-inserted']")).getText(),"Please check that your e-mail address is indicated correctly");
     }
+
     @Test(description = "Connect via gmail")
     public void verifyGmailConnection() {
         driver.findElement(By.xpath(".//*[@class='google-sign-in']")).click();
@@ -77,7 +85,6 @@ public class SignInTest {
         );
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         Set<String> handles = driver.getWindowHandles();
-        System.out.println(handles);
         List<String> siteIdList=new ArrayList<>(handles);
         for (String currentWindow: handles){
             driver.switchTo().window(currentWindow);
@@ -87,6 +94,7 @@ public class SignInTest {
         }
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='kHn9Lb']")).getText(),"Увійдіть в обліковий запис Google");
     }
+
     @Test()
     public void verifyForgotPassword()  {
         driver.findElement(By.xpath(".//*[@class='forgot-password']")).click();
