@@ -51,7 +51,8 @@ public class AboutUsPageTest {
     @Test
     public void verifyPageMainText() throws Exception {
         driver.get(BASE_URL);
-        boolean isTextAboutUsDisplayed = driver.findElement(By.cssSelector(".container-about")).getText().contains("About Us");
+        boolean isTextAboutUsDisplayed = driver.findElement(By.cssSelector(".container-about"))
+                .getText().contains("About Us");
         Assert.assertTrue(isTextAboutUsDisplayed);
     }
 
@@ -62,7 +63,7 @@ public class AboutUsPageTest {
      *
      * @param path - path to button
      */
-    public void verifyOpenSignInWindowButton(String path) throws Exception {
+    public void verifyThatButtonOpensSignInWindow(String path) throws Exception {
         driver.get(BASE_URL);
         boolean isForgotPasswordButtonDisplayed = true;
         driver.findElement(By.cssSelector(path)).click();
@@ -75,12 +76,12 @@ public class AboutUsPageTest {
 
     @Test
     public void verifyOpenSignInFromContainerAbout() throws Exception {
-        verifyOpenSignInWindowButton(".container-about .full-text-block > button");
+        verifyThatButtonOpensSignInWindow(".container-about .full-text-block > button");
     }
 
     @Test
     public void verifyOpenSignInFromContainerVision() throws Exception {
-        verifyOpenSignInWindowButton(".container-vision .full-text-block > button");
+        verifyThatButtonOpensSignInWindow(".container-vision .full-text-block > button");
     }
 
 
@@ -90,7 +91,7 @@ public class AboutUsPageTest {
      *
      * @param path - path to button
      */
-    public void verifyOpenMainPageButton(String path) throws Exception {
+    public void verifyThatButtonOpensMainPage(String path) throws Exception {
         driver.get(BASE_URL);
         boolean isButtonOnWelcomePageDisplayed = true;
         driver.findElement(By.id(path)).click();
@@ -102,23 +103,23 @@ public class AboutUsPageTest {
     }
 
     @Test
-    public void verifyOpenMainPageSecondCard() throws Exception {
-        verifyOpenMainPageButton("second-card-link");
+    public void verifyThatSecondCardOpensMainPage() throws Exception {
+        verifyThatButtonOpensMainPage("second-card-link");
     }
 
     @Test
-    public void verifyOpenMainPageThirdCard() throws Exception {
-        verifyOpenMainPageButton("third-card-link");
+    public void verifyThatThirdCardOpensMainPage() throws Exception {
+        verifyThatButtonOpensMainPage("third-card-link");
     }
 
     @Test
-    public void verifyOpenMainPageFourthCard() throws Exception {
-        verifyOpenMainPageButton("fourth-card-link");
+    public void verifyThatFourthCardOpensMainPage() throws Exception {
+        verifyThatButtonOpensMainPage("fourth-card-link");
     }
 
     @Test
-    public void verifyOpenMainPageFifthCard() throws Exception {
-        verifyOpenMainPageButton("fifth-card-link");
+    public void verifyThatFifthCardOpensMainPage() throws Exception {
+        verifyThatButtonOpensMainPage("fifth-card-link");
     }
 
 
@@ -127,7 +128,7 @@ public class AboutUsPageTest {
      * Checking buttons that lead to "Places" page (Welcome Page)
      */
     @Test
-    public void verifyOpenPlacesButton() throws Exception {
+    public void verifyThatButtonOpensPlacesPage() throws Exception {
         driver.get(BASE_URL);
         boolean isFilterButtonDisplayed = true;
         driver.findElement(By.cssSelector(".card-holder-odd.first-card-holder a[href='#/map']")).click();

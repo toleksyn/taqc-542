@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -20,6 +22,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class EcoNewsPageTest {
     private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/news";
     private final Long IMPLICITLY_WAIT_SECONDS = 10L;
+    private final int MAX_SCROLL_COUNT = 60;
     private WebDriver driver;
 
     @BeforeSuite
@@ -60,34 +63,44 @@ public class EcoNewsPageTest {
     /**
      * Test design technique: Pairwise Testing
      *
-     * @param filter1 - the first filter
-     * @param filter2 - the second filter
+     * @param firstFilter - the first filter
+     * @param secondFilter - the second filter
      *                Pair combination of 6 filters = 15 tests
      *                Steps:
      *                * 1) Choose Filters
      *                * 2) Find all News
-     *                * 4) Check labels
+     *                * 3) Check labels
      */
-    public void verifyFilterCoupleTest(String filter1, String filter2) throws Exception {
+    public void verifyFilterCoupleTest(String firstFilter, String secondFilter) throws Exception {
         driver.get(BASE_URL);
+
+        //choosing filters
         List<WebElement> webElements = driver.findElements(By.cssSelector(".custom-chip.global-tag"));
         for (WebElement element : webElements) {
-            if (element.getText().toUpperCase().contains(filter1) || element.getText().toUpperCase().contains(filter2)) {
+            if (element.getText().toUpperCase().contains(firstFilter) || element.getText().toUpperCase().contains(secondFilter)) {
                 element.click();
-                //WORK IN PROGRESS
+                driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                WebDriverWait wait = new WebDriverWait(driver, 10);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='title-list word-wrap']")));
+                driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
             }
         }
 
         int countOfFoundItems = Integer.parseInt(
                 driver.findElement(By.xpath("//app-remaining-count//p")).getText().replaceAll("[^0-9]", ""));
+
+        //scrolling till all news will be found
         List<WebElement> actualNews = driver.findElements(By.className("list-gallery"));
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        while (actualNews.size() < countOfFoundItems) {
+        int currentScrollIndex = 0;
+        while (actualNews.size() < countOfFoundItems && currentScrollIndex < MAX_SCROLL_COUNT) {
             jsExecutor.executeScript("arguments[0].scrollIntoView(true);", actualNews.get(actualNews.size() - 1));
             driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
             actualNews = driver.findElements(By.className("list-gallery"));
+            currentScrollIndex++;
         }
 
+        //checking news labels
         boolean isLabelsCorrect = true;
         List<WebElement> listNews = driver.findElements(By.className("list-gallery"));
         for (int i = 0; i < listNews.size(); i++) {
@@ -96,7 +109,7 @@ public class EcoNewsPageTest {
             for (int k = 0; k < listLabels.size(); k++) {
                 elementsLabels.add(listLabels.get(k).getText().toUpperCase());
             }
-            if (!elementsLabels.contains(filter1) && !elementsLabels.contains(filter2)) {
+            if (!elementsLabels.contains(firstFilter) && !elementsLabels.contains(secondFilter)) {
                 isLabelsCorrect = false;
             }
         }
