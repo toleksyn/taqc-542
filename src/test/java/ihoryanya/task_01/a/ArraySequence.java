@@ -6,7 +6,7 @@ public class ArraySequence {
         array = new int[n];
     }
 
-    public void arrayWithRandomizedNumbersGeneration() {
+    public void fillArrayWithRandomNumbers() {
         for (int i = 0; i < array.length; i++)
             array[i] = (int) Math.round((Math.random() * 31) + 1);
     }
