@@ -17,8 +17,6 @@ import java.util.Date;
 public class Util {
     private static final String TIME_TEMPLATE = "yyyy-MM-dd_HH-mm-ss-S";
 
-    private Util() {}
-
     public static void takeScreenShot(WebDriver driver) {
         String currentTime = new SimpleDateFormat(TIME_TEMPLATE).format(new Date());
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
