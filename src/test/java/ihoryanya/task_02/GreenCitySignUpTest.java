@@ -16,6 +16,7 @@ public class GreenCitySignUpTest {
     public void BeforeClass() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     @BeforeSuite
@@ -27,7 +28,6 @@ public class GreenCitySignUpTest {
     public void beforeMethod() {
         String baseUrl = "https://ita-social-projects.github.io/GreenCityClient/#/welcome";
         driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@class='sign-up-link ng-star-inserted']")).click();
     }
 
@@ -121,17 +121,17 @@ public class GreenCitySignUpTest {
     }
 
     @Test(dataProvider = "emailFieldInvalidData")
-    public void emailFieldCheckWInvalidData(String keysToSend) {
+    public void verifyEmailFieldWInvalidData(String keysToSend) {
         WebElement email = driver.findElement(By.id("email"));
         email.sendKeys(keysToSend);
         email.click();
         driver.findElement(By.xpath("//*[@class='switch-sign-up']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='error-message ng-star-inserted']")).getText(),
-                "Please check that your e-mail address is indicated correctly");
+                "Email is required");
     }
 
     @Test(dataProvider = "emailFieldValidData")
-    public void emailFieldCheckWValidData(String keysToSend) {
+    public void verifyEmailFieldWValidData(String keysToSend) {
         WebElement email = driver.findElement(By.id("email"));
         email.sendKeys(keysToSend);
         email.click();
@@ -141,15 +141,15 @@ public class GreenCitySignUpTest {
     }
 
     @Test
-    public void emptyEmailFieldCheck() {
+    public void verifyEmptyEmailField() {
         driver.findElement(By.id("email")).click();
         driver.findElement(By.xpath("//*[@class='switch-sign-up']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[@class='error-message ng-star-inserted']")).getText(),
-                "This field is required");
+                "Email is required");
     }
 
     @Test(dataProvider = "usernameFieldInvalidData")
-    public void usernameFieldCheckWInvalidData(String keysToSend) {
+    public void verifyUsernameFieldWInvalidData(String keysToSend) {
         WebElement firstName = driver.findElement(By.id("firstName"));
         firstName.sendKeys(keysToSend);
         firstName.click();
@@ -159,7 +159,7 @@ public class GreenCitySignUpTest {
     }
 
     @Test(dataProvider = "usernameFieldValidData")
-    public void usernameFieldCheckWValidData(String keysToSend) {
+    public void verifyUsernameFieldWValidData(String keysToSend) {
         WebElement firstName = driver.findElement(By.id("firstName"));
         firstName.sendKeys(keysToSend);
         firstName.click();
@@ -169,7 +169,7 @@ public class GreenCitySignUpTest {
     }
 
     @Test(dataProvider = "passwordFieldInvalidData")
-    public void passwordFieldCheckWInvalidData(String keysToSend) {
+    public void verifyPasswordFieldWInvalidData(String keysToSend) {
         WebElement password = driver.findElement(By.id("password"));
         password.sendKeys(keysToSend);
         password.click();
@@ -180,7 +180,7 @@ public class GreenCitySignUpTest {
     }
 
     @Test(dataProvider = "confirmPasswordFieldData")
-    public void confirmPasswordFieldCheckWData(String passwordToSend, String repeatPasswordToSend, boolean passwordsMatch) {
+    public void verifyConfirmPasswordFieldWData(String passwordToSend, String repeatPasswordToSend, boolean passwordsMatch) {
         WebElement password = driver.findElement(By.id("password"));
         password.sendKeys(passwordToSend);
         password.click();
