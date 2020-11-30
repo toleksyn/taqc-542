@@ -10,10 +10,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class AboutUsPageTest {
@@ -38,11 +36,6 @@ public class AboutUsPageTest {
         driver.quit();
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver.get(BASE_URL);
-    }
-
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
@@ -59,8 +52,9 @@ public class AboutUsPageTest {
      */
     @Test
     public void verifyPageMainText() throws Exception {
-        boolean result = driver.findElement(By.cssSelector(".container-about")).getText().contains("About Us");
-        Assert.assertTrue(result);
+        driver.get(BASE_URL);
+        boolean isTextAboutUsDisplayed = driver.findElement(By.cssSelector(".container-about")).getText().contains("About Us");
+        Assert.assertTrue(isTextAboutUsDisplayed);
     }
 
 
@@ -71,13 +65,14 @@ public class AboutUsPageTest {
      * @param path - path to button
      */
     public void verifyOpenSignInWindowButton(String path) throws Exception {
-        boolean isFound = true;
+        driver.get(BASE_URL);
+        boolean isForgotPasswordButtonDisplayed = true;
         driver.findElement(By.cssSelector(path)).click();
         if (driver.findElements(By.cssSelector(".forgot-password")).size() == 0) {
-            isFound = false;
+            isForgotPasswordButtonDisplayed = false;
         }
         driver.findElement(By.cssSelector("img[alt='close button']")).click();
-        Assert.assertTrue(isFound);
+        Assert.assertTrue(isForgotPasswordButtonDisplayed);
     }
 
     @Test
@@ -98,13 +93,14 @@ public class AboutUsPageTest {
      * @param path - path to button
      */
     public void verifyOpenMainPageButton(String path) throws Exception {
-        boolean isFound = true;
+        driver.get(BASE_URL);
+        boolean isButtonOnWelcomePageDisplayed = true;
         driver.findElement(By.id(path)).click();
         if (driver.findElements(By.cssSelector("#header-left > div > button")).size() == 0) {
-            isFound = false;
+            isButtonOnWelcomePageDisplayed = false;
         }
         driver.findElement(By.cssSelector(".navigation-menu ul > li > a[href='#/about']")).click();
-        Assert.assertTrue(isFound);
+        Assert.assertTrue(isButtonOnWelcomePageDisplayed);
     }
 
     @Test
@@ -134,12 +130,13 @@ public class AboutUsPageTest {
      */
     @Test
     public void verifyOpenPlacesButton() throws Exception {
-        boolean isFound = true;
+        driver.get(BASE_URL);
+        boolean isFilterButtonDisplayed = true;
         driver.findElement(By.cssSelector(".card-holder-odd.first-card-holder a[href='#/map']")).click();
         if (driver.findElements(By.id("filter_btn")).size() == 0) {
-            isFound = false;
+            isFilterButtonDisplayed = false;
         }
         driver.findElement(By.cssSelector(".navigation-menu ul > li > a[href='#/about']")).click();
-        Assert.assertTrue(isFound);
+        Assert.assertTrue(isFilterButtonDisplayed);
     }
 }

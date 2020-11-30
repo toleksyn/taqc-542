@@ -12,7 +12,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -40,11 +39,6 @@ public class EcoNewsPageTest {
         driver.quit();
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver.get(BASE_URL);
-    }
-
     @AfterMethod
     public void afterMethod(ITestResult result) {
         /* to unclick active filters */
@@ -58,8 +52,6 @@ public class EcoNewsPageTest {
         }
 
         if (!result.isSuccess()) {
-            String testName = result.getName();
-            System.out.println("TC error, name = " + testName + " ERROR");
             driver.manage().deleteAllCookies();
         }
     }
@@ -77,25 +69,14 @@ public class EcoNewsPageTest {
      *                * 4) Check labels
      */
     public void verifyFilterCoupleTest(String filter1, String filter2) throws Exception {
-        Thread.sleep(1000); //working on it - cannot load element correct
+        driver.get(BASE_URL);
         List<WebElement> webElements = driver.findElements(By.cssSelector(".custom-chip.global-tag"));
         for (WebElement element : webElements) {
             if (element.getText().toUpperCase().contains(filter1) || element.getText().toUpperCase().contains(filter2)) {
                 element.click();
-                Thread.sleep(1000); //working on it - cannot load element correct
+                //WORK IN PROGRESS
             }
         }
-
-        /*-
-        //working on it
-        List<WebElement> linkProjects = null;
-        Actions action = new Actions(driver);
-        do { //scrolling
-            action.moveToElement(driver.findElement(By.cssSelector(".links"))).perform();
-            //presentationSleep(2); // For Presentation ONLY
-            linkProjects = driver.findElements(By.className("description"));
-        } while (linkProjects.size() == 0);
-        */
 
         int countOfFoundItems = Integer.parseInt(
                 driver.findElement(By.xpath("//app-remaining-count//p")).getText().replaceAll("[^0-9]", ""));
@@ -106,8 +87,6 @@ public class EcoNewsPageTest {
             driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
             actualNews = driver.findElements(By.className("list-gallery"));
         }
-        System.out.println("AFTER Actual news = " + actualNews.size());
-
 
         boolean isLabelsCorrect = true;
         List<WebElement> listNews = driver.findElements(By.className("list-gallery"));
