@@ -39,8 +39,6 @@ public class AboutUsPageTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            String testName = result.getName();
-            System.out.println("TC error, name = " + testName + " ERROR");
             driver.manage().deleteAllCookies();
         }
     }
