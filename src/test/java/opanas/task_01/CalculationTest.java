@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class CalculationTest {
     private static Calculation calculation ;
     @DataProvider(name="Positive digits")
-    public Object[][] GetData(){
+    public Object[][] getData(){
         Object[][] data={
                 {8,4},
                 {4,3},
