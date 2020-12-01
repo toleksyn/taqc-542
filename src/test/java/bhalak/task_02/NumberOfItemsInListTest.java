@@ -1,68 +1,100 @@
 package bhalak.task_02;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class NumberOfItemsInListTest {
-	private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/welcome";
-	private final Long IMPLICITLY_WAIT_SECONDS = 3L;
-	private WebDriver driver;
+    private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/welcome";
+    private final Long IMPLICITLY_WAIT_SECONDS = 10L;
+    private final Long EXPLICITLY_WAIT_SECONDS = 10L;
+    private final int ITEM_SCROLLING_STEP = 2;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-	@AfterClass(alwaysRun = true)
-	public void afterClass() {
-		driver.quit();
-	}
+    @BeforeSuite
+    public void beforeSuite() {
+        WebDriverManager.chromedriver().setup();
+    }
 
-	@Test
-	public void verifyNumberOfEcoNewsItemsInList() {
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		driver.get(BASE_URL);
+    @BeforeClass
+    public void beforeClass() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        wait = (new WebDriverWait(driver, EXPLICITLY_WAIT_SECONDS));
+    }
 
-		int actualNumberOfListItems = 0;
-		int expectedNumberOfListItems = 0;
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
+        driver.quit();
+    }
 
-		driver.findElement(By.xpath("//div[@class = 'navigation-menu-left']//a[contains(@href, '/news')]")).click();
+    @AfterMethod
+    public void afterMethod(ITestResult testResult) {
+        if (!testResult.isSuccess()) {
+            Util.takePageSource(driver);
+            Util.takeScreenShot(driver);
+        }
+    }
 
-		if (driver.findElement(By.xpath("//span[contains(@class, 'btn-tiles-active')]")).isDisplayed()) {
-			driver.findElement(By.xpath("//i[@class ='fa fa-bars']")).click();
-		}
+    /**
+     * Test design technique: State Transition
+     * Test verifies that displayed number of found items equals number of items in list
+     */
+    @Test
+    public void verifyNumberOfEcoNewsItemsInList() {
+        int actualNumberOfListItems = 0;
+        int expectedNumberOfListItems = 0;
 
-		Assert.assertTrue(driver.findElement(By.xpath("//span[@class = 'btn-bars btn-bars-active']")).isDisplayed());
+        driver.get(BASE_URL);
+        driver.findElement(By.xpath("//div[@class = 'navigation-menu-left']//a[contains(@href, '/news')]")).click();
 
-		List<WebElement> description = new ArrayList<WebElement>();
-		WebElement footer = null;
-		Actions action = new Actions(driver);
+        if (driver.findElement(By.xpath("//span[contains(@class, 'btn-tiles-active')]")).isDisplayed()) {
+            driver.findElement(By.xpath("//i[@class ='fa fa-bars']")).click();
+        }
 
-		while (description.size() == 0) {
-			footer = driver.findElement(By.xpath("//footer"));
-			action.moveToElement(footer).perform();
-			description = driver.findElements(By.xpath("//div[@class = 'description']"));
-		}
+        Assert.assertTrue(driver.findElement(By.xpath("//span[@class = 'btn-bars btn-bars-active']")).isDisplayed());
 
-		expectedNumberOfListItems = Integer
-				.parseInt(driver
-								.findElement(By.xpath("//app-remaining-count/p"))
-								.getText()
-								.split(" ")[0]
-				);
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 
-		actualNumberOfListItems = driver.findElements(By.xpath("//ul[contains(@class, 'list')]/li")).size();
+        wait.until(ExpectedConditions
+                .invisibilityOfElementLocated(By.xpath("//app-remaining-count/p[contains(text(),' 0 ')]")));
 
-		Assert.assertEquals(expectedNumberOfListItems, actualNumberOfListItems);
-	}
+        driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
+
+        expectedNumberOfListItems = Integer.parseInt(driver
+                .findElement(By.xpath("//app-remaining-count/p"))
+                .getText()
+                .split(" ")[0]);
+        WebElement itemToScroll;
+        int itemIndex = 0;
+
+        while (itemIndex < expectedNumberOfListItems) {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+
+            itemToScroll = wait.until(ExpectedConditions
+                    .visibilityOfElementLocated(By
+                            .xpath("//ul[contains(@class, 'list')]/li[" + (itemIndex + 1) + "]")));
+
+            driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", itemToScroll);
+
+            itemIndex += ITEM_SCROLLING_STEP;
+        }
+
+        actualNumberOfListItems = driver.findElements(By
+                .xpath("//ul[contains(@class, 'list ng-star-inserted')]/li")).size();
+
+        Assert.assertEquals(actualNumberOfListItems, expectedNumberOfListItems);
+    }
 }
