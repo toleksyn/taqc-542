@@ -1,15 +1,15 @@
 package viktorkuksenko.task_02;
 
 
-
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -45,8 +45,8 @@ public class EcoNewsPresenceOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            Util.takePageSource(driver);
-            Util.takeScreenShot(driver);
+            com.softserve.edu.Util.takePageSource(driver);
+            com.softserve.edu.Util.takeScreenShot(driver);
         }
     }
 
@@ -104,32 +104,32 @@ public class EcoNewsPresenceOfElementsTest {
     }
 
     @Test
-    public void verifyIsPresentFilterButtons1() {
+    public void verifyIsPresentAdsFilterButton() {
         verifyIsPresentFilterButtons("Ads");
     }
 
     @Test
-    public void verifyIsPresentFilterButtons2() {
+    public void verifyIsPresentEventsFilterButton() {
         verifyIsPresentFilterButtons("Events");
     }
 
     @Test
-    public void verifyIsPresentFilterButtons3() {
+    public void verifyIsPresentNewsFilterButton() {
         verifyIsPresentFilterButtons("News");
     }
 
     @Test
-    public void verifyIsPresentFilterButtons4() {
+    public void verifyIsPresentEducationFilterButton() {
         verifyIsPresentFilterButtons("Education");
     }
 
     @Test
-    public void verifyIsPresentFilterButtons5() {
+    public void verifyIsPresentInitiativesFilterButton() {
         verifyIsPresentFilterButtons("Initiatives");
     }
 
     @Test
-    public void verifyIsPresentFilterButtons6() {
+    public void verifyIsPresentLifehacksFilterButton() {
         verifyIsPresentFilterButtons("Lifehacks");
     }
 
@@ -170,7 +170,6 @@ public class EcoNewsPresenceOfElementsTest {
     /**
      * Test design technique: Smoke Testing
      * This test case verifies that present bottom menu on the Eco news page.
-     *
      * @param expectedMenuElement - name of menu element
      */
 
@@ -186,27 +185,27 @@ public class EcoNewsPresenceOfElementsTest {
     }
 
     @Test
-    public void verifyIsPresentBottomMenuItems1() {
+    public void verifyIsPresentEcoNewsBottomMenuItem() {
         verifyIsPresentBottomMenuItems("Eco news");
     }
 
     @Test
-    public void verifyIsPresentBottomMenuItems2() {
+    public void verifyIsPresentTipsAndTricksBottomMenuItem() {
         verifyIsPresentBottomMenuItems("Tips & Tricks");
     }
 
     @Test
-    public void verifyIsPresentBottomMenuItems3() {
+    public void verifyIsPresentPlacesBottomMenuItem() {
         verifyIsPresentBottomMenuItems("Places");
     }
 
     @Test
-    public void verifyIsPresentBottomMenuItems4() {
+    public void verifyIsPresentAboutUsBottomMenuItem() {
         verifyIsPresentBottomMenuItems("About us");
     }
 
     @Test
-    public void verifyIsPresentBottomMenuItems5() {
+    public void verifyIsPresentMyHabitsBottomMenuItem() {
         verifyIsPresentBottomMenuItems("My habits");
     }
 }

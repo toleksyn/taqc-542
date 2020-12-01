@@ -47,8 +47,8 @@ public class TipsAndTricksPresenceAndClickabilityOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            Util.takePageSource(driver);
-            Util.takeScreenShot(driver);
+            com.softserve.edu.Util.takePageSource(driver);
+            com.softserve.edu.Util.takeScreenShot(driver);
         }
     }
 
@@ -126,7 +126,6 @@ public class TipsAndTricksPresenceAndClickabilityOfElementsTest {
         String centralElementParagraphBeforeClick = driver.findElement(By
                 .xpath("//app-tips-card[@class='swiper-slide ng-star-inserted swiper-slide-active']//p"))
                 .getText();
-        System.out.println(centralElementParagraphBeforeClick);
         previousButton.click();
         String centralElementParagraphAfterClick = driver.findElement(By
                 .xpath("//app-tips-card[@class='swiper-slide swiper-slide-duplicate swiper-slide-active']//p"))

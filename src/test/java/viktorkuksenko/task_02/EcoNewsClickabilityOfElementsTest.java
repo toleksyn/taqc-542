@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -48,8 +48,8 @@ public class EcoNewsClickabilityOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            Util.takePageSource(driver);
-            Util.takeScreenShot(driver);
+            com.softserve.edu.Util.takePageSource(driver);
+            com.softserve.edu.Util.takeScreenShot(driver);
         }
     }
 
@@ -60,51 +60,47 @@ public class EcoNewsClickabilityOfElementsTest {
      */
 
     private void verifyIsFilterButtonsClickable(String filterElement) {
-        boolean isFilterButtonClickable = false;
+        boolean isFilterButtonClickable;
         WebElement filterButton = driver.findElement(By.xpath(filterElement));
         filterButton.click();
         //check if classname changed on "custom-chip global-tag global-tag-clicked"
-        if (filterButton.getAttribute("class").equals("custom-chip global-tag global-tag-clicked")) {
-            isFilterButtonClickable = true;
-        } else {
-            isFilterButtonClickable = false;
-        }
-
+        isFilterButtonClickable = filterButton.getAttribute("class")
+                .equals("custom-chip global-tag global-tag-clicked");
         Assert.assertTrue(isFilterButtonClickable);
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable1() {
+    public void verifyIsAdsFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Ads ')]");
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable2() {
+    public void verifyIsEventsFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Events ')]");
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable3() {
+    public void verifyIsNewsFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' News ')]");
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable4() {
+    public void verifyIsEducationFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Education ')]");
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable5() {
+    public void verifyIsInitiativesFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Initiatives ')]");
     }
 
     @Test
-    public void verifyIsFilterButtonsClickable6() {
+    public void verifyIsLifehacksFilterButtonClickable() {
         verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Lifehacks ')]");
     }
