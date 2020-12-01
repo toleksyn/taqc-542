@@ -17,4 +17,5 @@ pom.xml
 #Gradle
 .gradle/
 build
+TestRegExApp.*
 

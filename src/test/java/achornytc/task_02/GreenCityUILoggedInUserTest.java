@@ -10,8 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GreenCityUILoggedInUserTest {
     private final static String TEST_SITE_URL = "https://ita-social-projects.github.io/GreenCityClient/";
@@ -31,7 +34,7 @@ public class GreenCityUILoggedInUserTest {
 
 
     @BeforeAll
-    public static void BeforeClass() {
+    public static void beforeClass() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get(TEST_SITE_URL);
@@ -40,21 +43,24 @@ public class GreenCityUILoggedInUserTest {
         Assertions.assertTrue(logInToSite(userIsLoggedIn), "Log In failed. All other tests are ignored.");
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/menuFunctionalTestWithTargetObjectsLoggedOn.csv")
-    void verifyMenuTargetObjectCompliance_positive_targetObjectAppearsAfterClick(String menuItem, String target) {
+    private void verifyMenuTargetObjectCompliance_targetObjectAppearsAfterClick(String menuItem, String target) {
         driver.manage().window().maximize();
         driver.findElement(By.xpath(menuItem)).click();
         Assertions.assertTrue(driver.findElement(By.xpath(target)).isDisplayed(),
                 "A target element could not be found");
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/menuResolutionAppearanceTestDataPositiveLoggedOn.csv", numLinesToSkip = 1)
-    void verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(String windowWidth, String shouldBeClicked,
-                                                                     String elementXPath) {
+    @Test
+    void verifyMyHabitsMenuItem_forTargetObjectCompliance() {
+        verifyMenuTargetObjectCompliance_targetObjectAppearsAfterClick(
+                "//div[@class='navigation-menu']//a[normalize-space(text()) = 'My habits']",
+                "//div[@class='profile__details']");
+    }
+
+    private void verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(Integer windowWidth, String shouldBeClicked,
+                                                                             String elementXPath) {
         driver.navigate().to(TEST_SITE_URL);
-        resolution = new Dimension(Integer.parseInt(windowWidth), driver.manage().window().getSize().height);
+        resolution = new Dimension(windowWidth, driver.manage().window().getSize().height);
         driver.manage().window().setSize(resolution);
         if (shouldBeClicked != null && !shouldBeClicked.isEmpty()) {
             driver.findElement(By.xpath(shouldBeClicked)).click();
@@ -64,13 +70,47 @@ public class GreenCityUILoggedInUserTest {
 
     }
 
+    @Test
+    void verifyUserAvatarWrapperAppearance_inWindowWidth900px() {
+        verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(
+                900, null, "//*[@id='user-avatar-wrapper']");
+    }
+
+    @Test
+    void verifySettingsAppearance_inWindowWidth900px() {
+        verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(
+                900, "//*[@id='user-avatar-wrapper']",
+                "//div[@id='user-avatar-wrapper']//a[normalize-space(text()) = 'Settings']");
+    }
+
+    @Test
+    void verifySignOutAppearance_inWindowWidth900px() {
+        verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(
+                900, "//*[@id='user-avatar-wrapper']",
+                "//div[@id='user-avatar-wrapper']//a[normalize-space(text()) = 'Sign out']");
+    }
+
+    @Test
+    void verifySettingsAppearance_inWindowWidth500px() {
+        verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(
+                500, "//li[@class='burger-b']",
+                "//div[@class='navigation-menu-left-col']//a[normalize-space(text()) = 'Sign out']");
+    }
+
+    @Test
+    void verifySignOutAppearance_inWindowWidth500px() {
+        verifyMenuResizeWindowAppearance_positive_shouldBeDisplayed(
+                500, "//li[@class='burger-b']",
+                "//div[@class='navigation-menu-left-col']//a[normalize-space(text()) = 'Sign out']");
+    }
+
+
     @ParameterizedTest
     @CsvFileSource(resources = "/anyPageSmokeTestDataPositiveLoggedOn.csv", numLinesToSkip = 1)
-    void verifyAnyPage_positive_shouldBeDisplayed(String pageXPath, String shouldBeClicked, String elementXPath) {
+    void verifyAnyPage_elementsShouldBeDisplayed(String pageXPath, String shouldBeClicked, String elementXPath) {
         driver.manage().window().maximize();
         driver.findElement(By.xpath(pageXPath)).click();
         if (shouldBeClicked != null && !shouldBeClicked.isEmpty()) {
-            driver.navigate().refresh();
             driver.findElement(By.xpath(shouldBeClicked)).click();
         }
         Assertions.assertTrue(driver.findElement(By.xpath(elementXPath)).isDisplayed(),
