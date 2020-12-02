@@ -23,23 +23,22 @@ import java.util.concurrent.TimeUnit;
 public class EconewsLocalizationTest {
     private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/news";
     private final Long IMPLICITLY_WAIT_SECONDS = 5L;
-    private final Long ONE_SECOND_DELAY = 1000L;
     private Map<String, Map<String, String>> localization;
     private WebDriver driver;
 
     private void initLocalization() {
         localization = new HashMap<>();
-        localization.put("Ua", uaLocalization());
-        localization.put("Ru", ruLocalization());
-        localization.put("En", enLocalization());
+        localization.put("Ua", getUaLocalizationData());
+        localization.put("Ru", getRuLocalizationData());
+        localization.put("En", getEnLocalizationData());
     }
 
-    private Map<String, String> uaLocalization() {
+    private Map<String, String> getUaLocalizationData() {
         Map<String, String> uaLocalizationMap = new HashMap<>();
         uaLocalizationMap.put("main-header", "Еко новини");
         uaLocalizationMap.put("div.wrapper>span", "Фільтрувати за");
         uaLocalizationMap.put("div.wrapper a.ng-star-inserted", "Реклама Події Новиини Освіта Ініціативи Лайфхаки");
-        uaLocalizationMap.put("div.main-wrapper p", "62 новин знайдено");
+        uaLocalizationMap.put("div.main-wrapper p", "40 новин знайдено");
         uaLocalizationMap.put(".sign-in-link.tertiary-global-button.last-nav-item", "Увійти");
         uaLocalizationMap.put(".sign-up-link.ng-star-inserted", "Зареєструватись");
         uaLocalizationMap.put("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'news')]", "Еко новини");
@@ -50,12 +49,12 @@ public class EconewsLocalizationTest {
         return uaLocalizationMap;
     }
 
-    private Map<String, String> ruLocalization() {
+    private Map<String, String> getRuLocalizationData() {
         Map<String, String> ruLocalizationMap = new HashMap<>();
         ruLocalizationMap.put("main-header", "Эко новости");
         ruLocalizationMap.put("div.wrapper>span", "Фильтровать по");
         ruLocalizationMap.put("div.wrapper a.ng-star-inserted", "Реклама События Новости Оброзование Инициативы Лайфхаки");
-        ruLocalizationMap.put("div.main-wrapper p", "62 новости найдено");
+        ruLocalizationMap.put("div.main-wrapper p", "40 новостей найдено");
         ruLocalizationMap.put(".sign-in-link.tertiary-global-button.last-nav-item", "Войти");
         ruLocalizationMap.put(".sign-up-link.ng-star-inserted", "Зарегистрироваться");
         ruLocalizationMap.put("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'news')]", "Эко новости");
@@ -66,13 +65,12 @@ public class EconewsLocalizationTest {
         return ruLocalizationMap;
     }
 
-
-    private Map<String, String> enLocalization() {
+    private Map<String, String> getEnLocalizationData() {
         Map<String, String> enLocalizationMap = new HashMap<>();
         enLocalizationMap.put("main-header", "Eco news");
         enLocalizationMap.put("div.wrapper>span", "Filter by");
         enLocalizationMap.put("div.wrapper a.ng-star-inserted", "Ads Events News Education Initiatives Lifehacks");
-        enLocalizationMap.put("div.main-wrapper p", "30 items found");
+        enLocalizationMap.put("div.main-wrapper p", "40 items found");
         enLocalizationMap.put(".sign-in-link.tertiary-global-button.last-nav-item", "Sign in");
         enLocalizationMap.put(".sign-up-link.ng-star-inserted", "Sign up");
         enLocalizationMap.put("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'news')]", "Eco news");
@@ -85,7 +83,6 @@ public class EconewsLocalizationTest {
 
     private WebElement getChangedLanguage(String name) {
         driver.findElement(By.cssSelector("div.switcher-wrapper>ul")).click();
-        // presentationSleep(2);
         return driver.findElement(By.xpath("//ul[@class='add-shadow']//li[contains(text(),'" + name + "')]"));
     }
 
@@ -95,7 +92,6 @@ public class EconewsLocalizationTest {
         try {
             FileUtils.copyFile(scrFile, new File("./" + currentTime + "_TC_" + name + "_screenshot.png"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -108,7 +104,6 @@ public class EconewsLocalizationTest {
         try {
             Files.write(path, strToBytes, StandardOpenOption.CREATE);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -155,7 +150,7 @@ public class EconewsLocalizationTest {
 
     @Test(dataProvider = "dataLocalization")
     public void verifyEcoNewsTitle(String localizationName) {
-        String expectedResult = localization.get(localizationName).get("main-header");//Еко новини
+        String expectedResult = localization.get(localizationName).get("main-header");
         getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
@@ -164,7 +159,6 @@ public class EconewsLocalizationTest {
         String actualResult = driver.findElement(By.className("main-header")).getText().trim();
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 
     @Test(dataProvider = "dataLocalization")
     public void verifyFilterMainTitle(String localizationName) {
@@ -267,7 +261,7 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void checkSignIn(String localizationName) {
+    public void verifySignIn(String localizationName) {
         String expectedResult = localization.get(localizationName).get(".sign-in-link.tertiary-global-button.last-nav-item");
         getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -279,7 +273,7 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void checkSignUp(String localizationName) {
+    public void verifySignUp(String localizationName) {
         String expectedResult = localization.get(localizationName).get(".sign-up-link.ng-star-inserted");
         getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
