@@ -45,13 +45,13 @@ public class EcoNewsPresenceOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            com.softserve.edu.Util.takePageSource(driver);
-            com.softserve.edu.Util.takeScreenShot(driver);
+            Util.takePageSource(driver);
+            Util.takeScreenShot(driver);
         }
     }
 
     @Test
-    public void verifyIsPresentPageTitle() {
+    public void verifyPageTitleIsPresent() {
         String title = driver.getTitle();
         Assert.assertTrue(title.length() > 0);
     }
@@ -68,7 +68,7 @@ public class EcoNewsPresenceOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentEcoNewsPageHeader() {
+    public void verifyEcoNewsPageHeaderIsPresent() {
         //get header by class name
         WebElement actualEcoNewsHeader = driver.findElement(By.className("main-header"));
         Assert.assertTrue(actualEcoNewsHeader.getText().length() > 0);
@@ -80,7 +80,7 @@ public class EcoNewsPresenceOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentFilterByElement() {
+    public void verifyFilterByElementIsPresent() {
         String filterByElement = driver.findElement(By.xpath("//div[@class='wrapper']/span[. ='Filter by']")).getText();
         Assert.assertEquals(filterByElement, "Filter by");
     }
@@ -91,7 +91,7 @@ public class EcoNewsPresenceOfElementsTest {
      * @param expectedFilterElement - name of filter element
      */
 
-    private void verifyIsPresentFilterButtons(String expectedFilterElement) {
+    private void verifyFilterButtonsArePresent(String expectedFilterElement) {
         boolean isButtonPresent = false;
         List<WebElement> actualListOfFilterElements = driver.findElements(By
                 .xpath("//li[@class='custom-chip global-tag']"));
@@ -104,33 +104,33 @@ public class EcoNewsPresenceOfElementsTest {
     }
 
     @Test
-    public void verifyIsPresentAdsFilterButton() {
-        verifyIsPresentFilterButtons("Ads");
+    public void verifyAdsFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("Ads");
     }
 
     @Test
-    public void verifyIsPresentEventsFilterButton() {
-        verifyIsPresentFilterButtons("Events");
+    public void verifyEventsFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("Events");
     }
 
     @Test
-    public void verifyIsPresentNewsFilterButton() {
-        verifyIsPresentFilterButtons("News");
+    public void verifyNewsFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("News");
     }
 
     @Test
-    public void verifyIsPresentEducationFilterButton() {
-        verifyIsPresentFilterButtons("Education");
+    public void verifyEducationFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("Education");
     }
 
     @Test
-    public void verifyIsPresentInitiativesFilterButton() {
-        verifyIsPresentFilterButtons("Initiatives");
+    public void verifyInitiativesFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("Initiatives");
     }
 
     @Test
-    public void verifyIsPresentLifehacksFilterButton() {
-        verifyIsPresentFilterButtons("Lifehacks");
+    public void verifyLifehacksFilterButtonIsPresent() {
+        verifyFilterButtonsArePresent("Lifehacks");
     }
 
     /**
@@ -139,7 +139,7 @@ public class EcoNewsPresenceOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentItemsFoundParagraph() {
+    public void verifyItemsFoundParagraphIsPresent() {
         String actualItemsFoundParagraph = driver.findElement(By
                 .xpath("//div[@class='main-wrapper']//p")).getText().replaceAll("[^A-z]", " ").trim();
         Assert.assertEquals(actualItemsFoundParagraph, "items found");
@@ -151,7 +151,7 @@ public class EcoNewsPresenceOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentGridButton() {
+    public void verifyGridButtonIsPresent() {
         boolean isButtonPresent = !driver.findElements(By.xpath("//i[@class='fa fa-th-large']")).isEmpty();
         Assert.assertTrue(isButtonPresent);
     }
@@ -162,7 +162,7 @@ public class EcoNewsPresenceOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentListButton() {
+    public void verifyListButtonIsPresent() {
         boolean isButtonPresent = !driver.findElements(By.xpath("//i[@class='fa fa-bars']")).isEmpty();
         Assert.assertTrue(isButtonPresent);
     }
@@ -173,7 +173,7 @@ public class EcoNewsPresenceOfElementsTest {
      * @param expectedMenuElement - name of menu element
      */
 
-    private void verifyIsPresentBottomMenuItems(String expectedMenuElement) {
+    private void verifyBottomMenuItemsArePresent(String expectedMenuElement) {
         boolean isMenuItemPresent = false;
         List<WebElement> actualListOfMenuItems = driver.findElements(By.xpath("//li/a[@class='router-links']"));
         for (WebElement menuElement : actualListOfMenuItems) {
@@ -185,27 +185,27 @@ public class EcoNewsPresenceOfElementsTest {
     }
 
     @Test
-    public void verifyIsPresentEcoNewsBottomMenuItem() {
-        verifyIsPresentBottomMenuItems("Eco news");
+    public void verifyEcoNewsBottomMenuItemIsPresent() {
+        verifyBottomMenuItemsArePresent("Eco news");
     }
 
     @Test
-    public void verifyIsPresentTipsAndTricksBottomMenuItem() {
-        verifyIsPresentBottomMenuItems("Tips & Tricks");
+    public void verifyTipsAndTricksBottomMenuItemIsPresent() {
+        verifyBottomMenuItemsArePresent("Tips & Tricks");
     }
 
     @Test
-    public void verifyIsPresentPlacesBottomMenuItem() {
-        verifyIsPresentBottomMenuItems("Places");
+    public void verifyPlacesBottomMenuItemIsPresent() {
+        verifyBottomMenuItemsArePresent("Places");
     }
 
     @Test
-    public void verifyIsPresentAboutUsBottomMenuItem() {
-        verifyIsPresentBottomMenuItems("About us");
+    public void verifyAboutUsBottomMenuItemIsPresent() {
+        verifyBottomMenuItemsArePresent("About us");
     }
 
     @Test
-    public void verifyIsPresentMyHabitsBottomMenuItem() {
-        verifyIsPresentBottomMenuItems("My habits");
+    public void verifyMyHabitsBottomMenuItemIsPresent() {
+        verifyBottomMenuItemsArePresent("My habits");
     }
 }

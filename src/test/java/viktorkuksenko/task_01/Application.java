@@ -1,4 +1,4 @@
-package viktorkuksenko.task_01;
+package com.softserve.edu.task_01;
 
 public class Application {
     public static void main(String[] args) {

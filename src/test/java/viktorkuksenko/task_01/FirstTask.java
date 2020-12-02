@@ -1,4 +1,4 @@
-package viktorkuksenko.task_01;
+package com.softserve.edu.task_01;
 
 /*
  * Given an integer m > 1. Get the largest integer k, which satisfies the condition 4^k < m.

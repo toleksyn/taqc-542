@@ -44,8 +44,8 @@ public class EcoNewsClickabilityOfSearchResultsTest {
     public void afterMethod(ITestResult result) {
         unclickActiveFilter();
         if (!result.isSuccess()) {
-            com.softserve.edu.Util.takePageSource(driver);
-            com.softserve.edu.Util.takeScreenShot(driver);
+            Util.takePageSource(driver);
+            Util.takeScreenShot(driver);
         }
     }
 
@@ -58,7 +58,7 @@ public class EcoNewsClickabilityOfSearchResultsTest {
      *This test case verifies that after click on the filter buttons first result of search will be clickable.
      * @param container - XPath expression
      */
-    private void verifyIsClickableResultOfSearchUsingFilterButton(String container) {
+    private void verifyResultOfSearchUsingFilterButtonIsClickable(String container) {
         boolean isClickableResultOfSearch = false;
         driver.get(BASE_URL);
         WebElement filterElement = driver.findElement(By.xpath(container));
@@ -83,38 +83,38 @@ public class EcoNewsClickabilityOfSearchResultsTest {
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingAdsFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag'][" +
+    public void verifyResultOfSearchUsingAdsFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Ads ')]");
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingEventsFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag']" +
+    public void verifyResultOfSearchUsingEventsFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Events ')]");
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingNewsFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag']" +
+    public void verifyResultOfSearchUsingNewsFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' News ')]");
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingEducationFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag']" +
+    public void verifyResultOfSearchUsingEducationFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Education ')]");
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingInitiativesFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag']" +
+    public void verifyResultOfSearchUsingInitiativesFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Initiatives ')]");
     }
 
     @Test
-    public void verifyIsClickableResultsOfSearchUsingLifehacksFilterButton() {
-        verifyIsClickableResultOfSearchUsingFilterButton("//li[@class='custom-chip global-tag'][" +
+    public void verifyResultOfSearchUsingLifehacksFilterButtonIsClickable() {
+        verifyResultOfSearchUsingFilterButtonIsClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Lifehacks ')]");
     }
 }

@@ -1,4 +1,4 @@
-package viktorkuksenko.task_01;
+package com.softserve.edu.task_01;
 
 import java.util.Objects;
 

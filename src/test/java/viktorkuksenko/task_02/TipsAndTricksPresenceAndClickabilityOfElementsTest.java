@@ -47,13 +47,13 @@ public class TipsAndTricksPresenceAndClickabilityOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            com.softserve.edu.Util.takePageSource(driver);
-            com.softserve.edu.Util.takeScreenShot(driver);
+            Util.takePageSource(driver);
+            Util.takeScreenShot(driver);
         }
     }
 
     @Test
-    public void verifyIsPresentPageTitle() {
+    public void verifyPageTitleIsPresent() {
         Assert.assertTrue(driver.getTitle().length() > 0);
     }
 
@@ -69,7 +69,7 @@ public class TipsAndTricksPresenceAndClickabilityOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentMainHeader() {
+    public void verifyMainHeaderIsPresent() {
         Assert.assertTrue(driver.findElements(By.xpath("//h2[@class='section-caption']"))
                 .get(0).getText().length() > 0);
     }
@@ -80,7 +80,7 @@ public class TipsAndTricksPresenceAndClickabilityOfElementsTest {
      */
 
     @Test
-    public void verifyIsPresentPreviousAndNextButtons() {
+    public void verifyPreviousAndNextButtonsArePresent() {
         boolean isPresentPreviousButton = !driver
                 .findElements(By
                         .xpath("//button[@class='button-prev tips-navigation primary-global-button']")).isEmpty();

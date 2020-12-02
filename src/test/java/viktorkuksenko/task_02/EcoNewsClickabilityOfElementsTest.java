@@ -48,8 +48,8 @@ public class EcoNewsClickabilityOfElementsTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            com.softserve.edu.Util.takePageSource(driver);
-            com.softserve.edu.Util.takeScreenShot(driver);
+            Util.takePageSource(driver);
+            Util.takeScreenShot(driver);
         }
     }
 
@@ -59,7 +59,7 @@ public class EcoNewsClickabilityOfElementsTest {
      * @param filterElement - XPath expression
      */
 
-    private void verifyIsFilterButtonsClickable(String filterElement) {
+    private void verifyFilterButtonsAreClickable(String filterElement) {
         boolean isFilterButtonClickable;
         WebElement filterButton = driver.findElement(By.xpath(filterElement));
         filterButton.click();
@@ -70,38 +70,38 @@ public class EcoNewsClickabilityOfElementsTest {
     }
 
     @Test
-    public void verifyIsAdsFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag'][" +
+    public void verifyAdsFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Ads ')]");
     }
 
     @Test
-    public void verifyIsEventsFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
+    public void verifyEventsFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Events ')]");
     }
 
     @Test
-    public void verifyIsNewsFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
+    public void verifyNewsFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' News ')]");
     }
 
     @Test
-    public void verifyIsEducationFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
+    public void verifyEducationFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Education ')]");
     }
 
     @Test
-    public void verifyIsInitiativesFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag']" +
+    public void verifyInitiativesFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag']" +
                 "[contains(text(), ' Initiatives ')]");
     }
 
     @Test
-    public void verifyIsLifehacksFilterButtonClickable() {
-        verifyIsFilterButtonsClickable("//li[@class='custom-chip global-tag'][" +
+    public void verifyLifehacksFilterButtonIsClickable() {
+        verifyFilterButtonsAreClickable("//li[@class='custom-chip global-tag'][" +
                 "contains(text(), ' Lifehacks ')]");
     }
 
@@ -111,7 +111,7 @@ public class EcoNewsClickabilityOfElementsTest {
      */
 
     @Test
-    public void verifyIsClickableGridButton() {
+    public void verifyGridButtonIsClickable() {
         WebElement listButton = driver.findElements(By.xpath("//div[@class='wrapper']//span[@class='btn-bars']")).get(0);
         listButton.click();
         WebElement gridButton = driver.findElements(By.xpath("//div[@class='wrapper']/span[@class='btn-tiles']")).get(0);
@@ -127,7 +127,7 @@ public class EcoNewsClickabilityOfElementsTest {
      */
 
     @Test
-    public void verifyIsClickableListButton() {
+    public void verifyListButtonIsClickable() {
         WebElement listButton = driver.findElements(By.xpath("//div[@class='wrapper']//span[@class='btn-bars']")).get(0);
         listButton.click();
         String actualNameOfListButtonClass = listButton.getAttribute("class");
