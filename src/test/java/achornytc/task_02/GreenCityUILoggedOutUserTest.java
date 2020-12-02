@@ -26,9 +26,15 @@ public class GreenCityUILoggedOutUserTest {
     private final static Long IMPLICIT_WAIT = 10L;
     private static WebDriver driver;
     private static Dimension resolution;
+    private final static String ABSOLUTE_MARGIN_APPEAR_REGEX = "\\bmargin[-,a-z]*:( )+([0-9,\\.]+(px)*( )*)+;";
+    private final static String ABSOLUTE_WIDTH_APPEAR_REGEX = "[^-]width[-,a-z]*:( )+([0-9,.]+(px)*( )*)+;";
+    private final static String NUMBERS_FROM_ROW_REG_EX = "\\b[0-9]+";
+    private final static Integer MAX_ABSOLUTE_MARGIN_VALUE = 100;
+    private final static Integer DESKTOP_WINDOW_WIDTH = 1366;
+    private final static Integer MOBILE_WINDOW_WIDTH = 360;
 
     @BeforeAll
-    public static void BeforeClass() {
+    public static void beforeClass() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get(TEST_SITE_URL);
@@ -216,13 +222,6 @@ public class GreenCityUILoggedOutUserTest {
         }
         return absolutDimensions;
     }
-
-    final static String ABSOLUTE_MARGIN_APPEAR_REGEX = "\\bmargin[-,a-z]*:( )+([0-9,\\.]+(px)*( )*)+;";
-    final static String ABSOLUTE_WIDTH_APPEAR_REGEX = "[^-]width[-,a-z]*:( )+([0-9,.]+(px)*( )*)+;";
-    final static String NUMBERS_FROM_ROW_REG_EX = "\\b[0-9]+";
-    final static Integer MAX_ABSOLUTE_MARGIN_VALUE = 100;
-    final static Integer DESKTOP_WINDOW_WIDTH = 1366;
-    final static Integer MOBILE_WINDOW_WIDTH = 360;
 
     @Test
     void verifyAbsoluteMarginsAdmissibilityInPageSourceCode() {

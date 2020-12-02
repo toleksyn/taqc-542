@@ -10,11 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class GreenCityUILoggedInUserTest {
     private final static String TEST_SITE_URL = "https://ita-social-projects.github.io/GreenCityClient/";
@@ -40,7 +37,7 @@ public class GreenCityUILoggedInUserTest {
         driver.get(TEST_SITE_URL);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        Assertions.assertTrue(logInToSite(userIsLoggedIn), "Log In failed. All other tests are ignored.");
+        Assertions.assertTrue(loggingInToSite(userIsLoggedIn), "Log In failed. All other tests are ignored.");
     }
 
     private void verifyMenuTargetObjectCompliance_targetObjectAppearsAfterClick(String menuItem, String target) {
@@ -121,16 +118,16 @@ public class GreenCityUILoggedInUserTest {
     @AfterAll
     public static void afterClass() {
         if (userIsLoggedIn) {
-            logOutOfSite();
+            loggingOutOfSite();
         }
         driver.close();
     }
 
-    public static boolean logInToSite(boolean logInFlag) {
-        return logInToSite();
+    public static boolean loggingInToSite(boolean logInFlag) {
+        return loggingInToSite();
     }
 
-    private static boolean logInToSite() {
+    private static boolean loggingInToSite() {
         driver.manage().window().maximize();
         driver.findElement(By.cssSelector(SIGN_IN_LINK_CSS_SELECTOR)).click();
 
@@ -150,7 +147,7 @@ public class GreenCityUILoggedInUserTest {
 
     }
 
-    private static boolean logOutOfSite() {
+    private static boolean loggingOutOfSite() {
         driver.manage().window().maximize();
         driver.navigate().refresh();
         driver.findElement(By.xpath(USER_AVATAR_WRAPPER_LINK_XPATH)).click();
