@@ -1,8 +1,9 @@
 package okharabara.task02;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,13 +11,6 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +22,7 @@ public class SignUpLocalizationUaTest {
     private final String VALID_PASSWORD = "Qwerty1!";
     private Map<String, Map<String, String>> localization;
     private WebDriver driver;
+    private Utils utils = new Utils();
 
     private void initLocalization() {
         localization = new HashMap<>();
@@ -98,35 +93,6 @@ public class SignUpLocalizationUaTest {
         driver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_SECONDS, TimeUnit.SECONDS);
     }
 
-    private WebElement getChangedLanguage(String name) {
-        driver.findElement(By.cssSelector("div.switcher-wrapper>ul")).click();
-        return driver.findElement(By.xpath("//ul[@class='add-shadow']//li[contains(text(),'" + name + "')]"));
-    }
-
-    private void takeScreenShot(String name) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(scrFile, new File("./" + currentTime + "_TC_" + name + "_screenshot.png"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    private void takePageSource(String name) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
-        String pageSource = driver.getPageSource();
-        byte[] strToBytes = pageSource.getBytes();
-        Path path = Paths.get("./" + currentTime + "_TC_" + name + "_source.html");
-        try {
-            Files.write(path, strToBytes, StandardOpenOption.CREATE);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     @BeforeSuite
     public void beforeSuite() {
         WebDriverManager.chromedriver().setup();
@@ -153,8 +119,8 @@ public class SignUpLocalizationUaTest {
     public void afterMethod(ITestResult result) {
         driver.findElement(By.className("close-modal-window")).click();
         if (!result.isSuccess()) {
-            takeScreenShot(result.getName());
-            takePageSource(result.getName());
+            utils.takeScreenShot(result.getName());
+            utils.takePageSource(result.getName());
             driver.manage().deleteAllCookies(); // clear cache; delete cookie; delete session;
         }
     }
@@ -170,107 +136,107 @@ public class SignUpLocalizationUaTest {
 
     @Test(dataProvider = "dataLocalization")
     public void verifyTitle(String localizationName) {
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.className("title-text")).getText();
-        String expected = localization.get(localizationName).get("verifyTitle");
-        Assert.assertEquals(actual, expected);
+        String actualResult = driver.findElement(By.className("title-text")).getText();
+        String expectedResult = localization.get(localizationName).get("verifyTitle");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
     public void verifySubtitle(String localizationName) {
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.className("subtitle-text")).getText();
-        String expected = localization.get(localizationName).get("verifySubtitle");
-        Assert.assertEquals(actual, expected);
+        String actualResult = driver.findElement(By.className("subtitle-text")).getText();
+        String expectedResult = localization.get(localizationName).get("verifySubtitle");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
     public void verifySignUpLabels(String localizationName) {
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
         List<WebElement> labels = driver.findElements(By.className("content-label"));
-        List<String> actual = new ArrayList();
-        for (WebElement f : labels) {
-            actual.add(f.getText());
+        List<String> actualResult = new ArrayList();
+        for (WebElement label : labels) {
+            actualResult.add(label.getText());
         }
-        List<String> expected = Arrays.asList(localization.get(localizationName).get("verifySignUpLabels").split("-"));
-        Assert.assertEquals(expected, actual);
+        List<String> expectedResult = Arrays.asList(localization.get(localizationName).get("verifySignUpLabels").split("-"));
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyEmailHint(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatEmailHintDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.id("email")).getAttribute("placeholder");
-        String expected = localization.get(localizationName).get("verifyEmailHint");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.id("email")).getAttribute("placeholder");
+        String expectedResult = localization.get(localizationName).get("verifyEmailHint");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyEmailValidator(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatEmailValidatorDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
         driver.findElement(By.id("email")).click();
         driver.findElement(By.className("title-text")).click();
-        String actual = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
-        String expected = localization.get(localizationName).get("verifyEmailValidator");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
+        String expectedResult = localization.get(localizationName).get("verifyEmailValidator");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyFirstNameHint(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatFirstNameHintDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.id("firstName")).getAttribute("placeholder");
-        String expected = localization.get(localizationName).get("verifyFirstNameHint");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.id("firstName")).getAttribute("placeholder");
+        String expectedResult = localization.get(localizationName).get("verifyFirstNameHint");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyFirstNameValidator(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatFirstNameValidatorDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
         driver.findElement(By.id("firstName")).click();
         driver.findElement(By.className("title-text")).click();
-        String actual = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
-        String expected = localization.get(localizationName).get("verifyFirstNameValidator");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
+        String expectedResult = localization.get(localizationName).get("verifyFirstNameValidator");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyPasswordHint(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatPasswordHintDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.id("password")).getAttribute("placeholder");
-        String expected = localization.get(localizationName).get("verifyPasswordHint");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.id("password")).getAttribute("placeholder");
+        String expectedResult = localization.get(localizationName).get("verifyPasswordHint");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyPasswordValidator(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatPasswordValidatorDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
         driver.findElement(By.id("password")).click();
         driver.findElement(By.className("title-text")).click();
-        String actual = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
-        String expected = localization.get(localizationName).get("verifyPasswordValidator");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.cssSelector(".error-message.ng-star-inserted div")).getText();
+        String expectedResult = localization.get(localizationName).get("verifyPasswordValidator");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyRepeatPasswordHint(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatRepeatPasswordHintDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String actual = driver.findElement(By.id("repeatPassword")).getAttribute("placeholder");
-        String expected = localization.get(localizationName).get("verifyRepeatPasswordHint");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.id("repeatPassword")).getAttribute("placeholder");
+        String expectedResult = localization.get(localizationName).get("verifyRepeatPasswordHint");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyRegistrationButtonWithValidData(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyRegistrationButtonClickWithValidData(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
@@ -284,26 +250,26 @@ public class SignUpLocalizationUaTest {
         driver.findElement(By.id("repeatPassword")).click();
         driver.findElement(By.id("repeatPassword")).clear();
         driver.findElement(By.id("repeatPassword")).sendKeys(VALID_PASSWORD);
-        String actual = driver.findElement(By.className("primary-global-button")).getText();
-        String expected = localization.get(localizationName).get("verifyRegistrationButtonWithValidData");
-        Assert.assertEquals(expected, actual);
+        String actualResult = driver.findElement(By.className("primary-global-button")).getText();
+        String expectedResult = localization.get(localizationName).get("verifyRegistrationButtonWithValidData");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifyOrButton(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatOrButtonDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String expected = driver.findElement(By.className("switch-sign-up")).getText();
-        String actual = localization.get(localizationName).get("verifyOrButton");
-        Assert.assertEquals(expected, actual);
+        String expectedResult = driver.findElement(By.className("switch-sign-up")).getText();
+        String actualResult = localization.get(localizationName).get("verifyOrButton");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifySignUpFromGoogleButton(String localizationName) {
-        getChangedLanguage(localizationName).click();
+    public void verifyThatSignUpFromGoogleButtonDisplayed(String localizationName) {
+        utils.getChangedLanguage(localizationName).click();
         clickSignUp();
-        String expected = driver.findElement(By.className("google-text-sign-in")).getText();
-        String actual = localization.get(localizationName).get("verifySignUpFromGoogleButton");
-        Assert.assertEquals(expected, actual);
+        String expectedResult = driver.findElement(By.className("google-text-sign-in")).getText();
+        String actualResult = localization.get(localizationName).get("verifySignUpFromGoogleButton");
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }

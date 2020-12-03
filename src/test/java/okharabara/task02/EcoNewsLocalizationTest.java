@@ -1,8 +1,9 @@
 package okharabara.task02;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,21 +11,15 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class EconewsLocalizationTest {
+public class EcoNewsLocalizationTest {
     private final String BASE_URL = "https://ita-social-projects.github.io/GreenCityClient/#/news";
     private final Long IMPLICITLY_WAIT_SECONDS = 5L;
     private Map<String, Map<String, String>> localization;
     private WebDriver driver;
+    Utils utils = new Utils();
 
     private void initLocalization() {
         localization = new HashMap<>();
@@ -81,33 +76,6 @@ public class EconewsLocalizationTest {
         return enLocalizationMap;
     }
 
-    private WebElement getChangedLanguage(String name) {
-        driver.findElement(By.cssSelector("div.switcher-wrapper>ul")).click();
-        return driver.findElement(By.xpath("//ul[@class='add-shadow']//li[contains(text(),'" + name + "')]"));
-    }
-
-    private void takeScreenShot(String name) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(scrFile, new File("./" + currentTime + "_TC_" + name + "_screenshot.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void takePageSource(String name) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
-        String pageSource = driver.getPageSource();
-        byte[] strToBytes = pageSource.getBytes();
-        Path path = Paths.get("./" + currentTime + "_TC_" + name + "_source.html");
-        try {
-            Files.write(path, strToBytes, StandardOpenOption.CREATE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @BeforeSuite
     public void beforeSuite() {
         WebDriverManager.chromedriver().setup();
@@ -133,8 +101,8 @@ public class EconewsLocalizationTest {
     @AfterMethod
     public void afterMethod(ITestResult result) {
         if (!result.isSuccess()) {
-            takeScreenShot(result.getName());
-            takePageSource(result.getName());
+            utils.takeScreenShot(result.getName());
+            utils.takePageSource(result.getName());
             driver.manage().deleteAllCookies();
         }
     }
@@ -151,7 +119,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyEcoNewsTitle(String localizationName) {
         String expectedResult = localization.get(localizationName).get("main-header");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'cont']/h1[text()='" + expectedResult + "']")));
@@ -163,7 +131,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyFilterMainTitle(String localizationName) {
         String expectedResult = localization.get(localizationName).get("div.wrapper>span");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='wrapper']/span[text() = '" + expectedResult + "']")));
@@ -173,9 +141,9 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void checkItemsFound(String localizationName) {
+    public void verifyItemsFound(String localizationName) {
         String expectedResult = localization.get(localizationName).get("div.main-wrapper p");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='main-wrapper']/app-remaining-count/p[contains(text(), '" + expectedResult + "')]")));
@@ -185,9 +153,9 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void checkFilters(String localizationName) {
+    public void verifyFilters(String localizationName) {
         List<String> expectedResult = Arrays.asList(localization.get(localizationName).get("div.wrapper a.ng-star-inserted").split(" "));
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class = 'ul-eco-buttons']/a/li[contains(text(),'" + expectedResult.get(0) + "')]")));
@@ -203,7 +171,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyEcoNewsMenu(String localizationName) {
         String expectedResult = localization.get(localizationName).get("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'news')]");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'news')][contains(text(),'" + expectedResult + "')]")));
@@ -215,7 +183,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyTipsMenu(String localizationName) {
         String expectedResult = localization.get(localizationName).get("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'tips')]");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'tips')][contains(text(),'" + expectedResult + "')]")));
@@ -227,7 +195,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyPlacesMenu(String localizationName) {
         String expectedResult = localization.get(localizationName).get("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'map')]");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'map')][contains(text(),'" + expectedResult + "')]")));
@@ -239,7 +207,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyAboutUsMenu(String localizationName) {
         String expectedResult = localization.get(localizationName).get("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'about')]");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'about')][contains(text(),'" + expectedResult + "')]")));
@@ -251,7 +219,7 @@ public class EconewsLocalizationTest {
     @Test(dataProvider = "dataLocalization")
     public void verifyOwnHabitsMenu(String localizationName) {
         String expectedResult = localization.get(localizationName).get("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'profile')]");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'navigation-menu-left']/ul/li/a[contains(@href,'profile')][contains(text(),'" + expectedResult + "')]")));
@@ -261,9 +229,9 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifySignIn(String localizationName) {
+    public void verifySignInLocalization(String localizationName) {
         String expectedResult = localization.get(localizationName).get(".sign-in-link.tertiary-global-button.last-nav-item");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class = 'sign-in-link tertiary-global-button last-nav-item']/a[contains(text(),'" + expectedResult + "')]")));
@@ -273,9 +241,9 @@ public class EconewsLocalizationTest {
     }
 
     @Test(dataProvider = "dataLocalization")
-    public void verifySignUp(String localizationName) {
+    public void verifySignUpLocalization(String localizationName) {
         String expectedResult = localization.get(localizationName).get(".sign-up-link.ng-star-inserted");
-        getChangedLanguage(localizationName).click();
+        utils.getChangedLanguage(localizationName).click();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class='sign-up-link ng-star-inserted']/div/span[contains(text(),'" + expectedResult + "')]")));
