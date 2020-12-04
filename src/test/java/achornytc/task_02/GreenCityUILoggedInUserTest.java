@@ -25,7 +25,6 @@ public class GreenCityUILoggedInUserTest {
     private final static String TARGET_LOGIN_OBJECT_CSS_SELECTOR = "div.profile__details";
     private final static String LOG_OUT_LINK_XPATH = "//*[normalize-space(text()) = 'Sign out']";
     private final static String USER_AVATAR_WRAPPER_LINK_XPATH = "//*[@class='tertiary-global-button']//*[@class='arrow']/..";
-    private static boolean userIsLoggedIn = false;
     private static WebDriver driver;
     private static Dimension resolution;
 
@@ -37,7 +36,7 @@ public class GreenCityUILoggedInUserTest {
         driver.get(TEST_SITE_URL);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        Assertions.assertTrue(loggingInToSite(userIsLoggedIn), "Log In failed. All other tests are ignored.");
+        Assertions.assertTrue(loggingInToSite(), "Log In failed. All other tests are ignored.");
     }
 
     private void verifyMenuTargetObjectCompliance_targetObjectAppearsAfterClick(String menuItem, String target) {
@@ -117,9 +116,7 @@ public class GreenCityUILoggedInUserTest {
 
     @AfterAll
     public static void afterClass() {
-        if (userIsLoggedIn) {
-            loggingOutOfSite();
-        }
+        loggingOutOfSite();
         driver.close();
     }
 
@@ -149,7 +146,6 @@ public class GreenCityUILoggedInUserTest {
 
     private static boolean loggingOutOfSite() {
         driver.manage().window().maximize();
-        driver.navigate().refresh();
         driver.findElement(By.xpath(USER_AVATAR_WRAPPER_LINK_XPATH)).click();
         List<WebElement> signOutButtons = driver.findElements(By.xpath(LOG_OUT_LINK_XPATH));
         for (WebElement signOutButton : signOutButtons) {
