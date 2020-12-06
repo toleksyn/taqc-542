@@ -9,12 +9,12 @@ public class EconewsPage extends TopPart {
 
     protected WebDriver driver;
 
-    private WebElement news;
-    private WebElement education;
-    private WebElement initiatives;
-    private WebElement lifehacks;
-    private WebElement ads;
-    private WebElement events;
+    private WebElement newsFilter;
+    private WebElement educationFilter;
+    private WebElement initiativesFilter;
+    private WebElement lifehacksFilter;
+    private WebElement adsFilter;
+    private WebElement eventsFilter;
 
     private NewsComponent newsComponent;
     private WebElement foundItems;
@@ -25,72 +25,71 @@ public class EconewsPage extends TopPart {
     }
 
     private void initElements() {
-        news = driver.findElement(By.xpath("//li[contains(text(),'News')]"));
-        education = driver.findElement(By.xpath("//li[contains(text(),'Education')]"));
-        initiatives = driver.findElement(By.xpath("//li[contains(text(),'Initiatives')]"));
-        lifehacks = driver.findElement(By.xpath("//li[contains(text(),'Lifehacks')]"));
-        ads = driver.findElement(By.xpath("//li[contains(text(),'Ads')]"));
-        events = driver.findElement(By.xpath("//li[contains(text(),'Events')]"));
+        newsFilter = driver.findElement(By.xpath("//li[contains(text(),'News')]"));
+        educationFilter = driver.findElement(By.xpath("//li[contains(text(),'Education')]"));
+        initiativesFilter = driver.findElement(By.xpath("//li[contains(text(),'Initiatives')]"));
+        lifehacksFilter = driver.findElement(By.xpath("//li[contains(text(),'Lifehacks')]"));
+        adsFilter = driver.findElement(By.xpath("//li[contains(text(),'Ads')]"));
+        eventsFilter = driver.findElement(By.xpath("//li[contains(text(),'Events')]"));
 
         foundItems = driver.findElement(By.xpath("//app-remaining-count//p"));
     }
 
-    // Page Object
     // News Filter
-    public WebElement getNews() {
-        return news;
+    public WebElement getNewsFilter() {
+        return newsFilter;
     }
 
     public void clickNews() {
-        getNews().click();
+        getNewsFilter().click();
     }
 
     // Education Filter
-    public WebElement getEducation() {
-        return education;
+    public WebElement getEducationFilter() {
+        return educationFilter;
     }
 
     public void clickEducation() {
-        getEducation().click();
+        getEducationFilter().click();
     }
 
     // Initiatives Filter
-    public WebElement getInitiatives() {
-        return initiatives;
+    public WebElement getInitiativesFilter() {
+        return initiativesFilter;
     }
 
     public void clickInitiatives() {
-        getInitiatives().click();
+        getInitiativesFilter().click();
     }
 
     // Lifehacks Filter
-    public WebElement getLifehacks() {
-        return lifehacks;
+    public WebElement getLifehacksFilter() {
+        return lifehacksFilter;
     }
 
     public void clickLifehacks() {
-        getLifehacks().click();
+        getLifehacksFilter().click();
     }
 
     // Ads Filter
-    public WebElement getAds() {
-        return ads;
+    public WebElement getAdsFilter() {
+        return adsFilter;
     }
 
     public void clickAds() {
-        getAds().click();
+        getAdsFilter().click();
     }
 
     // Events Filter
-    public WebElement getEvents() {
-        return events;
+    public WebElement getEventsFilter() {
+        return eventsFilter;
     }
 
     public void clickEvents() {
-        getEvents().click();
+        getEventsFilter().click();
     }
 
-    //Count of News
+    // Count of News
     public Integer getCountOfFoundItems() {
         return Integer.parseInt(foundItems.getText().replaceAll("[^0-9]", ""));
     }

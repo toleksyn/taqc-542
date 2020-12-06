@@ -22,7 +22,6 @@ public class NewsComponent {
         lables = driver.findElements(By.cssSelector(".ul-eco-buttons.ng-star-inserted"));
     }
 
-    // Page Object
     public List<WebElement> getNewsItems() {
         return newsItems;
     }
