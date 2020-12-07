@@ -14,12 +14,12 @@ import java.util.Date;
 
 public class Utils {
     private WebDriver driver;
-    WebElement getChangedLanguage(String name) {
+    public WebElement getChangedLanguage(String name) {
         driver.findElement(By.cssSelector("div.switcher-wrapper>ul")).click();
         return driver.findElement(By.xpath("//ul[@class='add-shadow']//li[contains(text(),'" + name + "')]"));
     }
 
-    void takeScreenShot(String name) {
+    public void takeScreenShot(String name) {
         String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
@@ -30,7 +30,7 @@ public class Utils {
         }
     }
 
-    void takePageSource(String name) {
+    public void takePageSource(String name) {
         String currentTime = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S").format(new Date());
         String pageSource = driver.getPageSource();
         byte[] strToBytes = pageSource.getBytes();
