@@ -9,8 +9,8 @@ public class NewsComponent {
 
     private WebDriver driver;
 
-    private List<WebElement> lables;
     private List<WebElement> newsItems;
+    private List<WebElement> lables;
 
     public NewsComponent(WebDriver driver) {
         this.driver = driver;

@@ -25,7 +25,7 @@ public class AboutPage extends TopPart {
     }
 
     private void initElements() {
-        //not correct path
+        //not correct paths - page is changed and currently is not working
         formHabitUpperButton = driver.findElement(By.cssSelector(".container-about .full-text-block > button"));
         formHabitBottomButton =  driver.findElement(By.cssSelector(".container-vision .full-text-block > button"));
         findEcoPlacesButton = driver.findElement(By.id("second-card-link"));

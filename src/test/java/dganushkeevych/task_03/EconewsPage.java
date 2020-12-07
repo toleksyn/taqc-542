@@ -17,7 +17,7 @@ public class EconewsPage extends TopPart {
     private WebElement eventsFilter;
 
     private NewsComponent newsComponent;
-    private WebElement foundItems;
+    private WebElement foundItemsText;
 
     public EconewsPage(WebDriver driver) {
         super(driver);
@@ -32,7 +32,7 @@ public class EconewsPage extends TopPart {
         adsFilter = driver.findElement(By.xpath("//li[contains(text(),'Ads')]"));
         eventsFilter = driver.findElement(By.xpath("//li[contains(text(),'Events')]"));
 
-        foundItems = driver.findElement(By.xpath("//app-remaining-count//p"));
+        foundItemsText = driver.findElement(By.xpath("//app-remaining-count//p"));
     }
 
     // News Filter
@@ -91,11 +91,11 @@ public class EconewsPage extends TopPart {
 
     // Count of News
     public Integer getCountOfFoundItems() {
-        return Integer.parseInt(foundItems.getText().replaceAll("[^0-9]", ""));
+        return Integer.parseInt(foundItemsText.getText().replaceAll("[^0-9]", ""));
     }
 
-    public WebElement getFoundItems() {
-        return foundItems;
+    public WebElement getFoundItemsText() {
+        return foundItemsText;
     }
 
 }
