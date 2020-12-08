@@ -1,8 +1,24 @@
 package achornytc.task_03;
 
-public class BurgerMenuButton extends GreenCityWebElement{
-    public BurgerMenuButton() {
-        selfXPath = "burgerButtonXPath";
-        selfCSSSelector = "burgerButtonCSSSelector";
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class BurgerMenuButton extends GreenCityWebElement {
+    public BurgerMenuButton(WebDriver driver) {
+        super(driver);
+        burgerMenuButtonInit();
+    }
+
+    private void burgerMenuButtonInit() {
+        selfXPath = "//li[@class = 'burger-b']";
+    }
+
+    public void clickOnSelf() {
+        this
+                .getDriver()
+                .findElement(By
+                        .xpath(this
+                                .getSelfXPath()))
+                .click();
     }
 }

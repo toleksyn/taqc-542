@@ -1,11 +1,16 @@
 package achornytc.task_03;
 
-public class GreenCityMenuItem extends GreenCityWebElement{
+import org.openqa.selenium.WebDriver;
+
+public class GreenCityMenuItem extends GreenCityWebElement {
     protected String selfLinkText;
-    //protected String selfXPath;
     protected String targetURL;
     protected String targetPageTitle;
     protected String targetObjectXPath;
+
+    public GreenCityMenuItem(WebDriver driver) {
+        super(driver);
+    }
 
     public String getSelfLinkText() {
         return selfLinkText;

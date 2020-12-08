@@ -1,19 +1,38 @@
 package achornytc.task_03;
 
-public class NavigationMenu {
-    private static EcoNewsMenuItem ecoNewsMenuItem = new EcoNewsMenuItem();
+import org.openqa.selenium.WebDriver;
+
+public class NavigationMenu extends GreenCityWebElement {
+    private EcoNewsMenuItem ecoNewsMenuItem;
     private TipsTricksMenuItem tipsTricksMenuItem;
     private PlacesMenuItem placesMenuItem;
     private AboutUsMenuItem aboutUsMenuItem;
 
-    public NavigationMenu() {
-        this.ecoNewsMenuItem = new EcoNewsMenuItem();
-        this.tipsTricksMenuItem = new TipsTricksMenuItem();
-        this.placesMenuItem = new PlacesMenuItem();
-        this.aboutUsMenuItem = new AboutUsMenuItem();
+    public NavigationMenu(WebDriver driver) {
+        super(driver);
+        navigationMenuInit();
     }
 
-    public static void main(String[] args) {
-        System.out.println(ecoNewsMenuItem.getSelfXPath());
+    private void navigationMenuInit() {
+        ecoNewsMenuItem = new EcoNewsMenuItem(getDriver());
+        tipsTricksMenuItem = new TipsTricksMenuItem(getDriver());
+        placesMenuItem = new PlacesMenuItem(getDriver());
+        aboutUsMenuItem = new AboutUsMenuItem(getDriver());
+    }
+
+    public EcoNewsMenuItem getEcoNewsMenuItem() {
+        return ecoNewsMenuItem;
+    }
+
+    public TipsTricksMenuItem getTipsTricksMenuItem() {
+        return tipsTricksMenuItem;
+    }
+
+    public PlacesMenuItem getPlacesMenuItem() {
+        return placesMenuItem;
+    }
+
+    public AboutUsMenuItem getAboutUsMenuItem() {
+        return aboutUsMenuItem;
     }
 }

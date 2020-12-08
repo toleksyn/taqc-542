@@ -4,17 +4,11 @@ import org.junit.jupiter.api.*;
 
 public class GreenCityMenuPageObjectsTest {
     private static GreenCityPage greenCityPage;
-    private final static String WELCOME_PAGE_URL = "https://ita-social-projects.github.io/GreenCityClient/";
 
     @BeforeAll
     static void beforeAll() {
         greenCityPage = new GreenCityPage();
-    }
-
-    @BeforeEach
-    void beforeEach() {
-        greenCityPage
-                .open(WELCOME_PAGE_URL);
+        greenCityPage.openWelcomePage();
     }
 
     @AfterAll
@@ -22,62 +16,76 @@ public class GreenCityMenuPageObjectsTest {
         greenCityPage.close();
     }
 
-    private static void verifyHeaderMenuTargetTitleCompliance_targetTitleEqualsExpected(String menuItem,
-                                                                                        String pageTitle) {
-        String targetPageTitle = greenCityPage
-                .openHeaderMenuItem(menuItem)
-                .getPageTitle();
-
-        Assertions.assertEquals(targetPageTitle, pageTitle);
-    }
-
     @Test
     void verifyEcoNewsHeaderMenuItem_forTargetTitleCompliance() {
-        verifyHeaderMenuTargetTitleCompliance_targetTitleEqualsExpected("Eco news", "Eco news");
+        String ecoNewsActualPageTitle = greenCityPage
+                .openEcoNewsHeaderMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getEcoNewsExpectedPageTitle(), ecoNewsActualPageTitle);
     }
 
     @Test
     void verifyTipsTricksHeaderMenuItem_forTargetTitleCompliance() {
-        verifyHeaderMenuTargetTitleCompliance_targetTitleEqualsExpected("Tips & Tricks", "Tips & Tricks");
+        String tipsTricksActualPageTitle = greenCityPage
+                .openTipsTricksHeaderMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getTipsTricksExpectedPageTitle(), tipsTricksActualPageTitle);
     }
 
     @Test
     void verifyPlacesHeaderMenuItem_forTargetTitleCompliance() {
-        verifyHeaderMenuTargetTitleCompliance_targetTitleEqualsExpected("Places", "Places");
+        String placesActualPageTitle = greenCityPage
+                .openPlacesHeaderMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getPlacesExpectedPageTitle(), placesActualPageTitle);
     }
 
     @Test
     void verifyAboutUsHeaderMenuItem_forTargetTitleCompliance() {
-        verifyHeaderMenuTargetTitleCompliance_targetTitleEqualsExpected("About us", "About us");
-    }
-
-    private static void verifyFooterMenuTargetTitleCompliance_targetTitleEqualsExpected(String menuItem,
-                                                                                        String pageTitle) {
-        String targetPageTitle = greenCityPage
-                .openFooterMenuItem(menuItem)
+        String aboutUsActualPageTitle = greenCityPage
+                .openAboutUsHeaderMenuItem()
                 .getPageTitle();
 
-        Assertions.assertEquals(targetPageTitle, pageTitle);
+        Assertions.assertEquals(greenCityPage.getAboutUsExpectedPageTitle(), aboutUsActualPageTitle);
     }
 
     @Test
     void verifyEcoNewsFooterMenuItem_forTargetTitleCompliance() {
-        verifyFooterMenuTargetTitleCompliance_targetTitleEqualsExpected("Eco news", "Eco news");
+        String ecoNewsActualPageTitle = greenCityPage
+                .openEcoNewsFooterMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getEcoNewsExpectedPageTitle(), ecoNewsActualPageTitle);
     }
 
     @Test
     void verifyTipsTricksFooterMenuItem_forTargetTitleCompliance() {
-        verifyFooterMenuTargetTitleCompliance_targetTitleEqualsExpected("Tips & Tricks", "Tips & Tricks");
+        String tipsTricksActualPageTitle = greenCityPage
+                .openTipsTricksFooterMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getTipsTricksExpectedPageTitle(), tipsTricksActualPageTitle);
     }
 
     @Test
     void verifyPlacesFooterMenuItem_forTargetTitleCompliance() {
-        verifyFooterMenuTargetTitleCompliance_targetTitleEqualsExpected("Places", "Places");
+        String placesActualPageTitle = greenCityPage
+                .openPlacesFooterMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getPlacesExpectedPageTitle(), placesActualPageTitle);
     }
 
     @Test
     void verifyAboutUsFooterMenuItem_forTargetTitleCompliance() {
-        verifyFooterMenuTargetTitleCompliance_targetTitleEqualsExpected("About us", "About us");
+        String aboutUsActualPageTitle = greenCityPage
+                .openAboutUsFooterMenuItem()
+                .getPageTitle();
+
+        Assertions.assertEquals(greenCityPage.getAboutUsExpectedPageTitle(), aboutUsActualPageTitle);
     }
 
 

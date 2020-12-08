@@ -1,4 +1,14 @@
 package achornytc.task_03;
 
-public class LanguageSelector {
+import org.openqa.selenium.WebDriver;
+
+public class LanguageSelector extends GreenCityWebElement {
+    public LanguageSelector(WebDriver driver) {
+        super(driver);
+        languageSelectorInit();
+    }
+
+    private void languageSelectorInit() {
+        selfXPath = "//div[@class = 'switcher-wrapper']";
+    }
 }

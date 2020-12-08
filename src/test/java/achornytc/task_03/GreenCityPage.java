@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.concurrent.TimeUnit;
 
 
@@ -15,25 +16,39 @@ public class GreenCityPage {
     private static final long IMPLICIT_WAIT = 10L;
     private WebDriver driver;
     private final String WELCOME_PAGE_URL = "https://ita-social-projects.github.io/GreenCityClient/";
-    private String headerXPath = "//div[@class='header']";
-    private String footerXPath = "//footer";
 
 
     public GreenCityPage() {
+        greenCityWebDriverSetup();
         greenCityPageInit();
-        greenWebDriverSetup();
     }
 
     private void greenCityPageInit() {
-        greenCityPageHeader = new GreenCityPageHeader();
-        greenCityContentContainer = new GreenCityContentContainer();
-        greenCityPageFooter = new GreenCityPageFooter();
+        greenCityPageHeader = new GreenCityPageHeader(driver);
+        greenCityContentContainer = new GreenCityContentContainer(driver);
+        greenCityPageFooter = new GreenCityPageFooter(driver);
     }
 
-    public void greenWebDriverSetup() {
+    public void greenCityWebDriverSetup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+    }
+
+    public GreenCityPageHeader getGreenCityPageHeader() {
+        return greenCityPageHeader;
+    }
+
+    public GreenCityContentContainer getGreenCityContentContainer() {
+        return greenCityContentContainer;
+    }
+
+    public GreenCityPageFooter getGreenCityPageFooter() {
+        return greenCityPageFooter;
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 
     public GreenCityPage open(String url) {
@@ -46,16 +61,6 @@ public class GreenCityPage {
         return this;
     }
 
-    public GreenCityPage openHeaderMenuItem(String menuItemText) {
-        driver.findElement(By.xpath(headerXPath + "//a[normalize-space(text()) = '" + menuItemText + "']")).click();
-        return this;
-    }
-
-    public GreenCityPage openFooterMenuItem(String menuItemText) {
-        driver.findElement(By.xpath(footerXPath + "//a[normalize-space(text()) = '" + menuItemText + "']")).click();
-        return this;
-    }
-
     public String getPageTitle() {
         return driver.getTitle();
     }
@@ -65,11 +70,107 @@ public class GreenCityPage {
         driver.close();
     }
 
-    public void openEcoNewsHeaderMenuItem() {
+    public GreenCityPage openEcoNewsHeaderMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageHeader
+                                .getEcoNewsMenuItemXPath()))
+                .click();
+        return this;
+    }
+
+    public String getEcoNewsExpectedPageTitle() {
+        return this
+                .getGreenCityPageHeader()
+                .getHeaderNavigationMenu()
+                .getEcoNewsMenuItem()
+                .getTargetPageTitle();
+    }
+
+    public GreenCityPage openTipsTricksHeaderMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageHeader
+                                .getTipsTricksItemXPath()))
+                .click();
+        return this;
+    }
+
+    public String getTipsTricksExpectedPageTitle() {
+        return this
+                .getGreenCityPageHeader()
+                .getHeaderNavigationMenu()
+                .getTipsTricksMenuItem()
+                .getTargetPageTitle();
+    }
+
+    public GreenCityPage openPlacesHeaderMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageHeader
+                                .getPlacesItemXPath()))
+                .click();
+        return this;
+    }
+
+    public String getPlacesExpectedPageTitle() {
+        return this
+                .getGreenCityPageHeader()
+                .getHeaderNavigationMenu()
+                .getPlacesMenuItem()
+                .getTargetPageTitle();
+    }
+
+    public GreenCityPage openAboutUsHeaderMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageHeader
+                                .getAboutUsItemXPath()))
+                .click();
+        return this;
+    }
+
+    public String getAboutUsExpectedPageTitle() {
+        return this
+                .getGreenCityPageHeader()
+                .getHeaderNavigationMenu()
+                .getAboutUsMenuItem()
+                .getTargetPageTitle();
+    }
+
+    public GreenCityPage openEcoNewsFooterMenuItem() {
         driver
                 .findElement(By
                         .xpath(greenCityPageFooter
-                                .getEcoNewsMenuItemXPath()))
+                                .getEcoNewsItemXPath()))
                 .click();
+        return this;
+    }
+
+    public GreenCityPage openTipsTricksFooterMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageFooter
+                                .getTipsTricksItemXPath()))
+                .click();
+        return this;
+    }
+
+    public GreenCityPage openPlacesFooterMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageFooter
+                                .getPlacesItemXPath()))
+                .click();
+        return this;
+    }
+
+    public GreenCityPage openAboutUsFooterMenuItem() {
+        driver
+                .findElement(By
+                        .xpath(greenCityPageFooter
+                                .getAboutUsItemXPath()))
+                .click();
+        return this;
     }
 }
