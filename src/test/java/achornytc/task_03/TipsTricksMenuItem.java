@@ -2,7 +2,7 @@ package achornytc.task_03;
 
 public class TipsTricksMenuItem extends GreenCityMenuItem {
     public TipsTricksMenuItem() {
-        super.selfLinkText = "Tips & Tricks";
-        super.targetPageTitle = "Tips & Tricks";
+        selfLinkText = "Tips & Tricks";
+        targetPageTitle = "Tips & Tricks";
     }
 }
