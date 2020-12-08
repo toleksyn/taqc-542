@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class GreenCityPage {
+    private GreenCityPageHeader greenCityPageHeader;
+    private GreenCityContentContainer greenCityContentContainer;
+    private GreenCityPageFooter greenCityPageFooter;
+
     private static final long IMPLICIT_WAIT = 10L;
     private WebDriver driver;
     private String headerXPath = "//div[@class='header']";
