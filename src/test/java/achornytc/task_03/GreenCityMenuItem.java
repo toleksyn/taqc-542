@@ -1,18 +1,14 @@
 package achornytc.task_03;
 
-public class GreenCityMenuItem {
+public class GreenCityMenuItem extends GreenCityWebElement{
     protected String selfLinkText;
-    protected String selfXPath;
+    //protected String selfXPath;
     protected String targetURL;
     protected String targetPageTitle;
     protected String targetObjectXPath;
 
     public String getSelfLinkText() {
         return selfLinkText;
-    }
-
-    public String getSelfXPath() {
-        return selfXPath;
     }
 
     public String getTargetPageTitle() {

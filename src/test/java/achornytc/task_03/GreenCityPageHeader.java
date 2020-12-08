@@ -7,6 +7,7 @@ public class GreenCityPageHeader {
     private LanguageSelector languageSelector;
     private UserManagementBlock userManagementBlock;
     private BurgerMenuButton burgerMenuButton;
+    private BurgerMenuContainer burgerMenuContainer;
     //Burger menu container: make burger menu container to be a default container for menu and user management block
     //and if it is not active it should return just an empty XPath to XPath builder
 

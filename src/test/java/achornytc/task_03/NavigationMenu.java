@@ -12,4 +12,8 @@ public class NavigationMenu {
         this.placesMenuItem = new PlacesMenuItem();
         this.aboutUsMenuItem = new AboutUsMenuItem();
     }
+
+    public static void main(String[] args) {
+        System.out.println(ecoNewsMenuItem.getSelfXPath());
+    }
 }
