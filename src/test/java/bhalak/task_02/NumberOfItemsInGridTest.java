@@ -1,5 +1,6 @@
 package bhalak.task_02;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
@@ -39,7 +40,7 @@ public class NumberOfItemsInGridTest {
     }
 
     @AfterMethod
-    public void afterMethod(ITestResult testResult) {
+    public void afterMethod(ITestResult testResult) throws IOException {
         if (!testResult.isSuccess()) {
             Util.takePageSource(driver);
             Util.takeScreenShot(driver);
