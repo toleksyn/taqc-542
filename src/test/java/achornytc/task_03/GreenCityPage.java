@@ -24,9 +24,9 @@ public class GreenCityPage {
     }
 
     private void greenCityPageInit() {
-        greenCityPageHeader = new GreenCityPageHeader(driver);
-        greenCityContentContainer = new GreenCityContentContainer(driver);
-        greenCityPageFooter = new GreenCityPageFooter(driver);
+        greenCityPageHeader = new GreenCityPageHeader(getDriver());
+        greenCityContentContainer = new GreenCityContentContainer(getDriver());
+        greenCityPageFooter = new GreenCityPageFooter(getDriver());
     }
 
     public void greenCityWebDriverSetup() {

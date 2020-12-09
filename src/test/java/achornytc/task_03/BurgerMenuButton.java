@@ -13,7 +13,7 @@ public class BurgerMenuButton extends GreenCityWebElement {
         selfXPath = "//li[@class = 'burger-b']";
     }
 
-    public void clickOnSelf() {
+    public void click() {
         this
                 .getDriver()
                 .findElement(By

@@ -1,8 +1,6 @@
 package achornytc.task_03;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class GreenCityPageHeader extends GreenCityWebElement {
     private GreenCityLogo greenCityLogo;
@@ -60,7 +58,7 @@ public class GreenCityPageHeader extends GreenCityWebElement {
 
     public String getEcoNewsMenuItemXPath() {
         if (burgerMenuButton.isDisplayed()) {
-            burgerMenuButton.clickOnSelf();
+            burgerMenuButton.click();
             return getSelfXPath() + burgerMenuContainer.getEcoNewsMenuItemXPath();
         }
         return getSelfXPath() + headerNavigationMenu.getEcoNewsMenuItem().getSelfXPath();
@@ -68,7 +66,7 @@ public class GreenCityPageHeader extends GreenCityWebElement {
 
     public String getTipsTricksItemXPath() {
         if (burgerMenuButton.isDisplayed()) {
-            burgerMenuButton.clickOnSelf();
+            burgerMenuButton.click();
             return getSelfXPath() + burgerMenuContainer.getTipsTricksMenuItemXPath();
         }
         return getSelfXPath() + headerNavigationMenu.getTipsTricksMenuItem().getSelfXPath();
@@ -76,7 +74,7 @@ public class GreenCityPageHeader extends GreenCityWebElement {
 
     public String getPlacesItemXPath() {
         if (burgerMenuButton.isDisplayed()) {
-            burgerMenuButton.clickOnSelf();
+            burgerMenuButton.click();
             return getSelfXPath() + burgerMenuContainer.getPlacesMenuItemXPath();
         }
         return getSelfXPath() + headerNavigationMenu.getPlacesMenuItem().getSelfXPath();
@@ -84,7 +82,7 @@ public class GreenCityPageHeader extends GreenCityWebElement {
 
     public String getAboutUsItemXPath() {
         if (burgerMenuButton.isDisplayed()) {
-            burgerMenuButton.clickOnSelf();
+            burgerMenuButton.click();
             return getSelfXPath() + burgerMenuContainer.getAboutUsMenuItemXPath();
         }
         return getSelfXPath() + headerNavigationMenu.getAboutUsMenuItem().getSelfXPath();
