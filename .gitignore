@@ -10,11 +10,3 @@ logs/*
 .directory
 .idea/
 target/
-*.log
-test-output/
-pom.xml
-
-#Gradle
-.gradle/
-build
-
